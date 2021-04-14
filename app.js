@@ -5,6 +5,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const mongoose = require("mongoose");
+const encrypt = require("mongoose-encryption");
 
 //Create a new app instance using express
 const app = express();
@@ -28,10 +29,40 @@ mongoose.connect("mongodb://localhost:27017/userDB", {
 
 //Setup the new userDB
 //Create the userSchema
-const userSchema = {
+// const userSchema = {
+//   email: String,
+//   password: String
+// };
+
+/*Replace the simple version of the schema above to the below one
+The userSchema is no longer a simple javascript object,
+it is now an object create from the mongoose.Schema class
+*/
+const userSchema = new mongoose.Schema({
   email: String,
   password: String
-};
+});
+
+/*
+Mongoose Encryption Secret String
+It defines a secret (a long unguessable string) then uses this secret to encrypt the DB
+*/
+const secret = "Thisisourlittlesecret.";
+/*
+Use the secret to above to encrypt the DB by taking the userSchema and add
+mongoose.encrypt as a plugin to the schema and pass over the secret as a JS object
+
+It is important to add the plugin before the mongoose.model
+
+Encrypt Only Certain Fields (password) -> encryptedFields: ['password']
+*/
+userSchema.plugin(encrypt, {
+  secret: secret,
+  encryptedFields: ['password']
+});
+
+
+
 
 //Setup a new User model and specify the name of the collection User
 const User = new mongoose.model("User", userSchema);
