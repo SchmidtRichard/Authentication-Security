@@ -20,6 +20,30 @@ app.use(bodyParser.urlencoded({
 //Tell the app to use all the statics files inside the public folder
 app.use(express.static("public"));
 
+//Add some GETs to view the EJS files/websites
+//Target the home/root route to render the home page
+app.get("/", function(req, res) {
+  res.render("home");
+});
+
+//Target the login route to render the login page
+app.get("/login", function(req, res) {
+  res.render("login");
+});
+
+//Target the register route to render the register page
+app.get("/register", function(req, res) {
+  res.render("register");
+});
+
+
+
+
+
+
+
+
+
 //Set up the server to listen to port 3000
 app.listen(3000, function() {
   console.log("Server started on port 3000!!!");
