@@ -24,7 +24,7 @@ Simply creating an account for the user to store the email & password into mongo
 
 ## HTTP POST Request/POST Route Code Example
 
-### POST Request to Register Route
+### POST Request to Register Route Code Example
 
 ```js
 //POST request (register route) to post the username and password the user enter when registering
@@ -50,7 +50,7 @@ app.post("/register", function(req, res) {
 });
 ```
 
-### POST Request to Login Route
+### POST Request to Login Route Code Example
 
 ```js
 //POST request (login route) to login the user
@@ -92,7 +92,7 @@ Simple encryption and authentication for mongoose documents. Relies on the Node 
 
 ## How it Works
 
-Encryption is performed using AES-256-CBC with a random, unique initialization vector for each operation. Authentication is performed using HMAC-SHA-512.
+Encryption is performed using `AES-256-CBC` with a random, unique initialization vector for each operation. Authentication is performed using `HMAC-SHA-512`.
 
 ## Installation
 
@@ -100,9 +100,11 @@ Encryption is performed using AES-256-CBC with a random, unique initialization v
 
 ## Usage
 
-Generate and store keys separately. They should probably live in environment variables, but be sure not to lose them. You can either use a single secret string of any length; or a pair of base64 strings (a 32-byte encryptionKey and a 64-byte signingKey).
+Generate and store keys separately. They should probably live in environment variables, but be sure not to lose them. You can either use a single `secret` string of any length; or a pair of base64 strings (a 32-byte `encryptionKey` and a 64-byte `signingKey`).
 
 ### Basic
+
+By default, all fields are encrypted except for `_id`, `__v`, and fields with indexes
 
 ```js
 var mongoose = require('mongoose');
@@ -146,7 +148,7 @@ var secret = process.env.SOME_LONG_UNGUESSABLE_STRING;
 userSchema.plugin(encrypt, { secret: secret });
 ```
 
-## Mongoose Encryption Code
+## Mongoose Encryption Code Example
 
 ```js
 /*Replace the simple version of the schema above to the below one
