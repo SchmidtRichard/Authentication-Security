@@ -178,3 +178,99 @@ userSchema.plugin(encrypt, {
   encryptedFields: ['password']
 });
 ```
+
+# Environment Variables to Keep Secrets Safe
+
+## [dotenv](https://www.npmjs.com/package/dotenv)
+
+Dotenv is a zero-dependency module that loads environment variables from a `.env` file into `process.env`.
+
+### Install
+
+```js
+npm install dotenv
+```
+
+### Usage
+
+As early as possible in your application, require and configure dotenv.
+
+```js
+require('dotenv').config()
+```
+
+Create a `.env` file in the root directory of your project. Add environment-specific variables on new lines in the form of `NAME=VALUE`. For example:
+
+```js
+DB_HOST=localhost
+DB_USER=root
+DB_PASS=s1mpl3
+```
+
+`process.env` now has the keys and values you defined in your `.env` file.
+
+```js
+    const db = require('db')
+    db.connect({
+      host: process.env.DB_HOST,
+      username: process.env.DB_USER,
+      password: process.env.DB_PASS
+    })
+```
+
+## Environment Variables to Keep Secrets Safe Code Example
+
+```js
+# Add the enviroment variables
+
+# Mongoose Encryption Secret String
+# It defines a secret (a long unguessable string) then uses this secret to encrypt the DB
+
+SECRET=Thisisourlittlesecret.
+```
+
+Back in the `app.js` file, you need to delete and update the the below (check against )
+
+```js
+/*
+Mongoose Encryption Secret String
+It defines a secret (a long unguessable string) then uses this secret to encrypt the DB
+*/
+
+//Move to below code to the .env file
+
+
+//const secret = "Thisisourlittlesecret."; <- Delete this
+
+
+/*
+Use the secret above to encrypt the DB by taking the userSchema and add
+mongoose.encrypt as a plugin to the schema and pass over the secret as a JS object
+
+It is important to add the plugin before the mongoose.model
+
+Encrypt Only Certain Fields (password) -> encryptedFields: ['password']
+*/
+userSchema.plugin(encrypt, {
+  secret: process.env.SECRET, //Enviroment variables -> .env file
+  encryptedFields: ['password']
+});
+```
+
+## [.gitignore](https://github.com/github/gitignore/blob/master/Node.gitignore)
+
+Tell git which files and folders it should ignore when uploading to GitHub
+
+1.  From the Hyper terminal stop `nodemon app.js` and type in `touch .gitignore`, this will create the `.gitignore` file that you can configure to ignore all the files and folders you want to
+
+Examples:
+
+```js
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# dotenv environment variables file
+.env
+.env.test
+```

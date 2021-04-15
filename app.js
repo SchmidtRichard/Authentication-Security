@@ -1,6 +1,12 @@
 //jshint esversion:6
 
-//Create 4 constants to require packages/modules
+//Create some constants to require packages/modules
+
+/*
+It is important to put (require("dotenv").config();) on the top otherwise
+you may not be able to access it if it is not configured
+*/
+require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
@@ -9,6 +15,11 @@ const encrypt = require("mongoose-encryption");
 
 //Create a new app instance using express
 const app = express();
+
+
+//Test to get the API_KEY from the .env file printed
+console.log(process.env.API_KEY);
+
 
 //Tell the app to use EJS as its view engine as the templating engine
 app.set("view engine", "ejs");
@@ -47,9 +58,13 @@ const userSchema = new mongoose.Schema({
 Mongoose Encryption Secret String
 It defines a secret (a long unguessable string) then uses this secret to encrypt the DB
 */
-const secret = "Thisisourlittlesecret.";
+//Move to below code to the .env file
+
+
+//const secret = "Thisisourlittlesecret."; <- Delete this
+
 /*
-Use the secret to above to encrypt the DB by taking the userSchema and add
+Use the secret above to encrypt the DB by taking the userSchema and add
 mongoose.encrypt as a plugin to the schema and pass over the secret as a JS object
 
 It is important to add the plugin before the mongoose.model
@@ -57,7 +72,7 @@ It is important to add the plugin before the mongoose.model
 Encrypt Only Certain Fields (password) -> encryptedFields: ['password']
 */
 userSchema.plugin(encrypt, {
-  secret: secret,
+  secret: process.env.SECRET, //Enviroment variables -> .env file
   encryptedFields: ['password']
 });
 
