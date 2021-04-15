@@ -11,14 +11,19 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const mongoose = require("mongoose");
-const encrypt = require("mongoose-encryption");
+//const encrypt = require("mongoose-encryption"); <- Remove to use md5 (hash function)
+const md5 = require("md5");
 
 //Create a new app instance using express
 const app = express();
 
 
+
 //Test to get the API_KEY from the .env file printed
 console.log(process.env.API_KEY);
+//Test password hashed from the hash function (md5)
+console.log(md5("12345"));
+
 
 
 //Tell the app to use EJS as its view engine as the templating engine
@@ -61,7 +66,7 @@ It defines a secret (a long unguessable string) then uses this secret to encrypt
 //Move to below code to the .env file
 
 
-//const secret = "Thisisourlittlesecret."; <- Delete this
+//const secret = "Thisisourlittlesecret."; <- Delete this (Environment Variables to Keep Secrets Safe)
 
 /*
 Use the secret above to encrypt the DB by taking the userSchema and add
@@ -71,10 +76,13 @@ It is important to add the plugin before the mongoose.model
 
 Encrypt Only Certain Fields (password) -> encryptedFields: ['password']
 */
-userSchema.plugin(encrypt, {
-  secret: process.env.SECRET, //Enviroment variables -> .env file
-  encryptedFields: ['password']
-});
+
+//Remove the plugin below to use md5 (hash function)
+
+// userSchema.plugin(encrypt, {
+//   secret: process.env.SECRET, //Environment variables -> .env file
+//   encryptedFields: ['password']
+// });
 
 
 
@@ -104,7 +112,12 @@ app.post("/register", function(req, res) {
   const newUser = new User({
     //Values from the userSchema checked against the register.ejs variables
     email: req.body.username,
-    password: req.body.password
+
+    /*
+    Instead of saving the password, we will use the hash function (md5)
+    to turn the password into an inrreversabel hash
+    */
+    password: md5(req.body.password)
   });
   //Save the new user
   newUser.save(function(err) {
@@ -124,7 +137,15 @@ app.post("/register", function(req, res) {
 app.post("/login", function(req, res) {
   //Check in mongoDB if the credentials entered exist in the DB
   const username = req.body.username;
-  const password = req.body.password;
+
+  /*
+  Instead of saving the password, we will use the hash function (md5)
+  to turn the password into an inrreversabel hash
+
+  Hash the password the password the user type in using the same hash function (md5)
+  and compare the outcome of this with the hash that has being stored in our database (registration)
+  */
+  const password = md5(req.body.password);
 
   /*
   Check the details entered above (username & password)
@@ -142,6 +163,8 @@ app.post("/login", function(req, res) {
       Check if the password is correct, if correct render to the secrets page
       */
       if (foundUser) {
+
+        //Hash function - now compare the hash inside the DB with the hashed version of the user's password
         if (foundUser.password === password) {
           res.render("secrets");
         }
@@ -149,14 +172,6 @@ app.post("/login", function(req, res) {
     }
   });
 });
-
-
-
-
-
-
-
-
 
 //Set up the server to listen to port 3000
 app.listen(3000, function() {

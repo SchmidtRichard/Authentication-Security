@@ -1,7 +1,5 @@
 # Secrets Project
 
-* * *
-
 # [Express](https://expressjs.com/en/starter/installing.html)
 
 Use the npm init command to create a `package.json` file for your application.
@@ -185,7 +183,7 @@ userSchema.plugin(encrypt, {
 
 Dotenv is a zero-dependency module that loads environment variables from a `.env` file into `process.env`.
 
-### Install
+### Installation
 
 ```js
 npm install dotenv
@@ -218,6 +216,8 @@ DB_PASS=s1mpl3
     })
 ```
 
+* * *
+
 ## Environment Variables to Keep Secrets Safe Code Example
 
 ```js
@@ -229,7 +229,7 @@ DB_PASS=s1mpl3
 SECRET=Thisisourlittlesecret.
 ```
 
-Back in the `app.js` file, you need to delete and update the the below (check against )
+Back in the `app.js` file, you need to delete and update the the below (check against previous code)
 
 ```js
 /*
@@ -240,7 +240,7 @@ It defines a secret (a long unguessable string) then uses this secret to encrypt
 //Move to below code to the .env file
 
 
-//const secret = "Thisisourlittlesecret."; <- Delete this
+//const secret = "Thisisourlittlesecret."; <- Delete this (Environment Variables to Keep Secrets Safe)
 
 
 /*
@@ -259,7 +259,7 @@ userSchema.plugin(encrypt, {
 
 ## [.gitignore](https://github.com/github/gitignore/blob/master/Node.gitignore)
 
-Tell git which files and folders it should ignore when uploading to GitHub
+Tell git which files and folders it should ignore when uploading to GitHub, the `.env` file should always be kept hidden from GitHub and any other public place in order to keep the secrets safe.
 
 1.  From the Hyper terminal stop `nodemon app.js` and type in `touch .gitignore`, this will create the `.gitignore` file that you can configure to ignore all the files and folders you want to
 
@@ -273,4 +273,111 @@ jspm_packages/
 # dotenv environment variables file
 .env
 .env.test
+```
+
+* * *
+
+# Security Level 3 - Hash
+
+Hashing takes away the need for an encryption key. Hashing does not decrypt the password back into plain text. Hash functions turns the password the user has chosen into a hash, and store the hash into the DB.
+
+Hash functions are mathematical equations designed to make it almost impossible to go backwards, in other words, it is almost impossible to turn a hash back into a password.
+
+## [(MD5)](https://www.npmjs.com/package/md5)
+
+A JavaScript function for hashing messages with MD5.
+
+### Installation
+
+You can use this package on the server side as well as the client side.
+
+Node.js:
+
+```js
+npm install md5
+```
+
+### Usage
+
+```js
+var md5 = require('md5');
+
+console.log(md5('message'));
+```
+
+This will print the following
+
+```js
+78e731027d8fd50ed642340b7c9a63b3
+```
+
+## Hash Function (MD5) Code Example
+
+```js
+//POST request (register route) to post the username and password the user enter when registering
+app.post("/register", function(req, res) {
+  //Create the new user using the User model
+  const newUser = new User({
+    //Values from the userSchema checked against the register.ejs variables
+    email: req.body.username,
+
+    /*
+    Instead of saving the password, we will use the hash function (md5)
+    to turn the password into an inrreversabel hash
+    */
+    password: md5(req.body.password)
+  });
+  //Save the new user
+  newUser.save(function(err) {
+    if (err) {
+      console.log(err);
+    } else {
+      /*
+      Only render the secrets page if the user is logged in
+      that is why there is no app.get("/secrets")... route
+      */
+      res.render("secrets");
+    }
+  });
+});
+
+//POST request (login route) to login the user
+app.post("/login", function(req, res) {
+  //Check in mongoDB if the credentials entered exist in the DB
+  const username = req.body.username;
+
+  /*
+  Instead of saving the password, we will use the hash function (md5)
+  to turn the password into an inrreversabel hash
+
+  Hash the password the password the user type in using the same hash function (md5)
+  and compare the outcome of this with the hash that has being stored in our database (registration)
+  */
+  const password = md5(req.body.password);
+
+  /*
+  Check the details entered above (username & password)
+  if the details exist in the DB and match what is in the DB
+  Look through the collection of Users (User)
+  */
+  User.findOne({
+    email: username
+  }, function(err, foundUser) {
+    if (err) {
+      console.log(err);
+    } else {
+      /*
+      If the user has been found in the DB
+      Check if the password is correct, if correct render to the secrets page
+      */
+      if (foundUser) {
+
+        //Hash function - now compare the hash inside the DB with the hashed version of the user's password
+        if (foundUser.password === password) {
+          res.render("secrets");
+        }
+      }
+    }
+  });
+});
 ```
