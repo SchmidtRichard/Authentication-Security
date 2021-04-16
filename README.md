@@ -100,6 +100,11 @@ Encryption is performed using `AES-256-CBC` with a random, unique initialization
 
 Generate and store keys separately. They should probably live in environment variables, but be sure not to lose them. You can either use a single `secret` string of any length; or a pair of base64 strings (a 32-byte `encryptionKey` and a 64-byte `signingKey`).
 
+```js
+var mongoose = require('mongoose');
+var encrypt = require('mongoose-encryption');
+```
+
 ### Basic
 
 By default, all fields are encrypted except for `_id`, `__v`, and fields with indexes
@@ -183,13 +188,13 @@ userSchema.plugin(encrypt, {
 
 Dotenv is a zero-dependency module that loads environment variables from a `.env` file into `process.env`.
 
-### Installation
+## Installation
 
 ```js
 npm install dotenv
 ```
 
-### Usage
+## Usage
 
 As early as possible in your application, require and configure dotenv.
 
@@ -215,8 +220,6 @@ DB_PASS=s1mpl3
       password: process.env.DB_PASS
     })
 ```
-
-* * *
 
 ## Environment Variables to Keep Secrets Safe Code Example
 
@@ -289,7 +292,7 @@ Hash functions are mathematical equations designed to make it almost impossible 
 
 A JavaScript function for hashing messages with MD5.
 
-### Installation
+## Installation
 
 You can use this package on the server side as well as the client side.
 
@@ -299,7 +302,7 @@ Node.js:
 npm install md5
 ```
 
-### Usage
+## Usage
 
 ```js
 var md5 = require('md5');
@@ -374,7 +377,10 @@ app.post("/login", function(req, res) {
       */
       if (foundUser) {
 
-        //Hash function - now compare the hash inside the DB with the hashed version of the user's password
+        /*
+        Hash function - now compare the hash inside the DB with the
+        hashed version of the user's password
+        */
         if (foundUser.password === password) {
           res.render("secrets");
         }
@@ -408,16 +414,34 @@ _Example:_ to have two `rounds` of salting, we take the `hash` that was generate
 
 When it comes to checking the user's password when they login, we will take the password that they entered and combine it with the `salt` that is stored in the database and run it through the same number of salting rounds until we end up with the final `hash` and we compare the `hash` against the one that is stored in the database to see if the user entered the correct password.
 
-### Installation
+## Installation
 
 ```js
 npm install bcryptjs
 ```
 
-### Usage
+## Usage
 
 ```js
 const bcrypt = require("bcryptjs");
+```
+
+## Basic
+
+Auto-gen a salt and hash:
+
+```js
+bcrypt.hash('bacon', 8, function(err, hash) {
+});
+```
+
+To check a password:
+
+```js
+// Load hash from your password DB.
+bcrypt.compare("B4c0/\/", hash, function(err, res) {
+    // res === true
+});
 ```
 
 ## bcryptjs and Salting Code Example
