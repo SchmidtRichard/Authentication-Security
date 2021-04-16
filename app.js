@@ -12,7 +12,8 @@ const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const mongoose = require("mongoose");
 //const encrypt = require("mongoose-encryption"); <- Remove to use md5 (hash function)
-const md5 = require("md5");
+//const md5 = require("md5"); <- delete, now use bcryptjs
+const bcrypt = require("bcryptjs");
 
 //Create a new app instance using express
 const app = express();
@@ -22,7 +23,7 @@ const app = express();
 //Test to get the API_KEY from the .env file printed
 console.log(process.env.API_KEY);
 //Test password hashed from the hash function (md5)
-console.log(md5("12345"));
+//console.log(md5("12345")); <- delete, now use bcryptjs
 
 
 
@@ -108,29 +109,66 @@ app.get("/register", function(req, res) {
 
 //POST request (register route) to post the username and password the user enter when registering
 app.post("/register", function(req, res) {
-  //Create the new user using the User model
-  const newUser = new User({
-    //Values from the userSchema checked against the register.ejs variables
-    email: req.body.username,
 
-    /*
-    Instead of saving the password, we will use the hash function (md5)
-    to turn the password into an inrreversabel hash
-    */
-    password: md5(req.body.password)
-  });
-  //Save the new user
-  newUser.save(function(err) {
-    if (err) {
-      console.log(err);
-    } else {
+
+  //bcryptjs - hash password
+  bcrypt.hash(req.body.password, 15, function(err, hash) {
+
+
+    //Create the new user using the User model
+    const newUser = new User({
+      //Values from the userSchema checked against the register.ejs variables
+      email: req.body.username,
+
       /*
-      Only render the secrets page if the user is logged in
-      that is why there is no app.get("/secrets")... route
+      Instead of saving the password, we will use the hash function (md5)
+      to turn the password into an inrreversabel hash
       */
-      res.render("secrets");
-    }
+      password: hash // replace the previous code with the hash that has being generated
+    });
+    //Save the new user
+    newUser.save(function(err) {
+      if (err) {
+        console.log(err);
+      } else {
+        /*
+        Only render the secrets page if the user is logged in
+        that is why there is no app.get("/secrets")... route
+        */
+        res.render("secrets");
+      }
+    });
   });
+
+
+  //Replace the below with the one above
+
+
+  // //Create the new user using the User model
+  // const newUser = new User({
+  //   //Values from the userSchema checked against the register.ejs variables
+  //   email: req.body.username,
+  //
+  //   /*
+  //   Instead of saving the password, we will use the hash function (md5)
+  //   to turn the password into an inrreversabel hash
+  //   */
+  //   password: md5(req.body.password)
+  // });
+  // //Save the new user
+  // newUser.save(function(err) {
+  //   if (err) {
+  //     console.log(err);
+  //   } else {
+  //     /*
+  //     Only render the secrets page if the user is logged in
+  //     that is why there is no app.get("/secrets")... route
+  //     */
+  //     res.render("secrets");
+  //   }
+  // });
+
+
 });
 
 //POST request (login route) to login the user
@@ -145,7 +183,9 @@ app.post("/login", function(req, res) {
   Hash the password the password the user type in using the same hash function (md5)
   and compare the outcome of this with the hash that has being stored in our database (registration)
   */
-  const password = md5(req.body.password);
+  //const password = md5(req.body.password); <- replace with bcryptjs
+  const password = req.body.password;
+
 
   /*
   Check the details entered above (username & password)
@@ -164,10 +204,18 @@ app.post("/login", function(req, res) {
       */
       if (foundUser) {
 
-        //Hash function - now compare the hash inside the DB with the hashed version of the user's password
-        if (foundUser.password === password) {
-          res.render("secrets");
-        }
+        /*
+        Hash function - now compare the hash inside the DB with the
+        hashed version of the user's password
+        */
+        //if (foundUser.password === password) { <- replace with bcryptjs
+
+        // Load hash from your password DB.
+        bcrypt.compare(password, foundUser.password, function(err, result) {
+          if (result === true) {
+            res.render("secrets");
+          }
+        });
       }
     }
   });

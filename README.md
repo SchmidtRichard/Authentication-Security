@@ -220,6 +220,8 @@ DB_PASS=s1mpl3
 
 ## Environment Variables to Keep Secrets Safe Code Example
 
+.env file
+
 ```js
 # Add the enviroment variables
 
@@ -376,6 +378,109 @@ app.post("/login", function(req, res) {
         if (foundUser.password === password) {
           res.render("secrets");
         }
+      }
+    }
+  });
+});
+```
+
+* * *
+
+# Security Level 4 - Salting and Hashing Passwords with [bcryptjs](https://www.npmjs.com/package/bcryptjs)
+
+## bcryptjs Hashing Algorithm (replaces MD5)
+
+Optimized `bcrypt` in JavaScript with zero `dependencies`. Compatible to the `C++ bcrypt` binding on `node.js` and also working in the browser.
+
+> :warning: [(node.bcrypt.js)](https://www.npmjs.com/package/bcrypt) installation did not work for Windows, so bcrypt.js was used instead
+
+## Salting
+
+Salting takes the hashing a little bit further. In addition to the password, it also generates a random set of characters and those characters along with the user's password gets combined and then put through the hash function. So the resulting hash is created from both the password as well as the random unique `salt`. So adding the `salt` increases the number of characters which makes the database a lot more secure.
+
+The latest computers (2019) can calculate about 20 billion MD5 hashes per second, however, they can only calculate about 17 thousand `bcrypt` hashes per second which makes it dramatically harder for a hacker to generate those pre-compiled hash tables.
+
+### Salt Rounds
+
+How many `rounds` will you `salt` the password with, the more `rounds` the more secure the password is from hackers.
+
+_Example:_ to have two `rounds` of salting, we take the `hash` that was generated in `round` 1 and we add the same `salt` from before. And now run it through `bcrypt hash function` again and we end up with a different `hash`. And the number of times you do this is the number of `salt rounds`.
+
+When it comes to checking the user's password when they login, we will take the password that they entered and combine it with the `salt` that is stored in the database and run it through the same number of salting rounds until we end up with the final `hash` and we compare the `hash` against the one that is stored in the database to see if the user entered the correct password.
+
+### Installation
+
+```js
+npm install bcryptjs
+```
+
+### Usage
+
+```js
+const bcrypt = require("bcryptjs");
+```
+
+## bcryptjs and Salting Code Example
+
+```js
+//POST request (register route) to post the username and password the user enter when registering
+app.post("/register", function(req, res) {
+
+  //bcryptjs - hash password with 15 salt rounds
+  bcrypt.hash(req.body.password, 15, function(err, hash) {
+
+    //Create the new user using the User model
+    const newUser = new User({
+      //Values from the userSchema checked against the register.ejs variables
+      email: req.body.username,
+
+      password: hash // replace the previous code with the hash that has being generated
+    });
+    //Save the new user
+    newUser.save(function(err) {
+      if (err) {
+        console.log(err);
+      } else {
+        /*
+        Only render the secrets page if the user is logged in,
+        that is why there is no app.get("/secrets")... route
+        */
+        res.render("secrets");
+      }
+    });
+  });
+});
+
+//POST request (login route) to login the user
+app.post("/login", function(req, res) {
+  //Check in mongoDB if the credentials entered exist in the DB
+  const username = req.body.username;
+
+  //Get the password entered by the user
+  const password = req.body.password;
+
+  /*
+  Check the details entered above (username & password)
+  if the details exist in the DB and match what is in the DB
+  Look through the collection of Users (User)
+  */
+  User.findOne({
+    email: username
+  }, function(err, foundUser) {
+    if (err) {
+      console.log(err);
+    } else {
+      /*
+      If the user has been found in the DB
+      Check if the password is correct, if correct render the secrets page
+      */
+      if (foundUser) {
+        // Load hash from your password DB.
+        bcrypt.compare(password, foundUser.password, function(err, result) {
+          if (result === true) {
+            res.render("secrets");
+          }
+        });
       }
     }
   });
