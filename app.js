@@ -23,7 +23,7 @@ const app = express();
 //Test to get the API_KEY from the .env file printed
 console.log(process.env.API_KEY);
 //Test password hashed from the hash function (md5)
-//console.log(md5("12345")); <- delete, now use bcryptjs
+//console.log(md5("12345")); //Weak password hash. <- delete, now use bcryptjs
 
 
 
@@ -109,9 +109,15 @@ app.get("/register", function(req, res) {
 
 //POST request (register route) to post the username and password the user enter when registering
 app.post("/register", function(req, res) {
+  /*
+  bcrypt.hash('bacon', 8, function(err, hash) {
+  });
 
-
-  //bcryptjs - hash password
+    use the hash function passing in the password that the user has typed in when
+    they registered and also the number of rounds of salting we want to do and bcryptjs
+    will automatically genereate the random salt and also hash our password with the
+    number of salt rounds that we designed
+  */
   bcrypt.hash(req.body.password, 15, function(err, hash) {
 
 
@@ -124,7 +130,8 @@ app.post("/register", function(req, res) {
       Instead of saving the password, we will use the hash function (md5)
       to turn the password into an inrreversabel hash
       */
-      password: hash // replace the previous code with the hash that has being generated
+
+      password: hash // replace the previous code (password) with the hash that has being generated
     });
     //Save the new user
     newUser.save(function(err) {
@@ -211,7 +218,30 @@ app.post("/login", function(req, res) {
         //if (foundUser.password === password) { <- replace with bcryptjs
 
         // Load hash from your password DB.
+
+
+        /*
+        bcryptjs Hash function - now compare the hash inside the DB with the
+        hashed version of the user's password entered by the user
+
+        // Load hash from your password DB.
+        bcrypt.compare("B4c0/\/", hash, function(err, res) {
+          // res === true
+        });
+
+        compare the password ("B4c0/\/") entered by the user against the
+        hash (hash) one stored in the DB
+
+        Rename the res to result inside the call back function so it does not get
+        confused with the res we are trying to use
+        */
         bcrypt.compare(password, foundUser.password, function(err, result) {
+          /*
+          if the result of the comparison is equals to true,
+          then the password after hashing with the salt is equal to
+          the hash we get stored the DB, then it means the user got the
+          correct login password, then res.render the secrets page
+          */
           if (result === true) {
             res.render("secrets");
           }

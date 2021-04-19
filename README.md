@@ -3,8 +3,35 @@
 1.  [Express](#express)
 2.  [Security Level 1 - The Lowest Level](#security-level-1---the-lowest-level)</br>
     2.1. [HTTP POST Request/POST Route Code Example](#http-post-requestpost-route-code-example)</br>
-    2.1.1. [POST Request to Register Route Code Example](#post-request-to-register-route-code-example)</br>
-    2.1.2. [POST Request to Login Route Code Example](#post-request-to-login-route-code-example)</br>
+      2.1.1. [POST Request to Register Route Code Example](#post-request-to-register-route-code-example)</br>
+      2.1.2. [POST Request to Login Route Code Example](#post-request-to-login-route-code-example)</br>
+3.  [Security Level 2 - mongoose-encryption](#security-level-2--mongooseencryption)</br>
+    3.1 [How it Works](#how-it-works)</br>
+    3.2 [Installation](#installation)</br>
+    3.3 [Usage](#usage)</br>
+      3.1.1 [Basic](#basic)</br>
+      3.1.2 [Encrypt Only Certain Fields](#encrypt-only-certain-fields)</br>
+      3.1.3 [Secret String Instead of Two Keys](#secret-string-instead-of-two-keys)</br>
+    3.4 [Mongoose Encryption Code Example](#mongoose-encryption-code-example)</br>
+    3.5 [Environment Variables to Keep Secrets Safe](#environment-variables-to-keep-secrets-safe)</br>
+      3.5.1 [dotenv](#dotenv)</br>
+      3.5.2 [Installation](#installation)</br>
+      3.5.3 [Usage](#usage)</br>
+      3.5.4 [Environment Variables to Keep Secrets Safe Code Example](#environment-variables-to-keep-secrets-safe-code-example)</br>
+    3.6 [.gitignore](#gitignore)</br>
+4.  [Security Level 3 - Hash](#security-level-3--hash)</br>
+    4.1 [MD5](#md5)</br>
+    4.2 [Installation](#installation)</br>
+    4.3 [Usage](#usage)</br>
+    4.4 [Hash Function (MD5) Code Example](#hash-function-md5-code-example)</br>
+5.  [Security Level 4 - Salting and Hashing Passwords with bcryptjs](#security-level-4--salting-and-hashing-passwords-with-bcryptjs)</br>
+    5.1 [bcryptjs Hashing Algorithm (replaces MD5)](#bcryptjs-hashing-algorithm-replaces-md5)</br>
+    5.2 [Salting](#salting)</br>
+      5.2.1 [Salt Rounds](#salt-rounds)</br>
+    5.3 [Installation](#installation)</br>
+    5.4 [Usage](#usage)</br>
+    5.5 [Basic](#basic)</br>
+    5.6 [bcryptjs and Salting Code Example](#bcryptjs-and-salting-code-example)</br>
 
 * * *
 
@@ -457,8 +484,15 @@ bcrypt.compare("B4c0/\/", hash, function(err, res) {
 ```js
 //POST request (register route) to post the username and password the user enter when registering
 app.post("/register", function(req, res) {
+  /*
+  bcrypt.hash('bacon', 8, function(err, hash) {
+  });
 
-  //bcryptjs - hash password with 15 salt rounds
+    use the hash function passing in the password that the user has typed in when
+    they registered and also the number of rounds of salting we want to do and bcryptjs
+    will automatically genereate the random salt and also hash our password with the
+    number of salt rounds that we designed
+  */
   bcrypt.hash(req.body.password, 15, function(err, hash) {
 
     //Create the new user using the User model
@@ -504,11 +538,31 @@ app.post("/login", function(req, res) {
     } else {
       /*
       If the user has been found in the DB
-      Check if the password is correct, if correct render the secrets page
+      Check if the password is correct, if correct render to the secrets page
       */
       if (foundUser) {
+        /*
+        bcryptjs Hash function - now compare the hash inside the DB with the
+        hashed version of the user's password entered by the user
+
         // Load hash from your password DB.
+        bcrypt.compare("B4c0/\/", hash, function(err, res) {
+          // res === true
+        });
+
+        compare the password ("B4c0/\/") entered by the user against the
+        hash (hash) one stored in the DB
+
+        Rename the res to result inside the call back function so it does not get
+        confused with the res we are trying to use
+        */
         bcrypt.compare(password, foundUser.password, function(err, result) {
+          /*
+          if the result of the comparison is equals to true,
+          then the password after hashing with the salt is equal to
+          the hash we get stored the DB, then it means the user got the
+          correct login password, then res.render the secrets page
+          */
           if (result === true) {
             res.render("secrets");
           }
