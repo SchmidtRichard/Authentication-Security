@@ -7,7 +7,7 @@
     2.1. [HTTP POST Request/POST Route Code Example](#http-post-requestpost-route-code-example)</br>
       2.1.1. [POST Request to Register Route Code Example](#post-request-to-register-route-code-example)</br>
       2.1.2. [POST Request to Login Route Code Example](#post-request-to-login-route-code-example)</br>
-3.  [Security Level 2 - mongoose-encryption](#security-level-2---mongooseencryption)</br>
+3.  [Security Level 2 - mongoose-encryption](#security-level-2---mongoose---encryption)</br>
     3.1 [How it Works](#how-it-works)</br>
     3.2 [Installation](#installation)</br>
     3.3 [Usage](#usage)</br>
@@ -37,11 +37,11 @@
 6.  [Security Level 5 - Cookies and Sessions](#security-level-5---cookies-and-sessions)</br>
         6.1 [Implementation with Passport.js](#implementation-with-passportjs)</br>
         6.2 [Passport.js and Other Packages Installation](#passportjs-and-other-packages-installation)</br>
-        6.3 [express-session and Usage](#expresssession---and-usage)</br>
+        6.3 [express-session and Usage](#express---session-and-usage)</br>
           6.3.1 [Setup Express Session](#setup-express-session)</br>
           6.3.2 [Initialize and Start Using passport.js](#initialize-and-start-using-passportjs)</br>
           6.3.3 [Setup passport-local-mongoose](#setup-passport---local---mongoose)</br>
-          6.3.4 [passport-local Configuration](#passportlocal---configuration)</br>
+          6.3.4 [passport-local Configuration](#passport---local-configuration)</br>
           6.3.5 [Fixing Deprecation Warning](#fixing-deprecation-warning)</br>
         6.4 [GET Request to Secrets Route Code Example](#get-request-to-secrets-route-code-example)</br>
         6.5 [GET Request to Logout Route Code Example](#get-request-to-logout-route-code-example)</br>
