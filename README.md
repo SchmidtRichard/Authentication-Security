@@ -1,6 +1,8 @@
 # Table of Contents
 
 1.  [Express](#express)
+    1.1 [Installation](#installation)</br>
+    1.2 [Other Packages Installation](#other-packages-installation)</br>
 2.  [Security Level 1 - The Lowest Level](#security-level-1---the-lowest-level)</br>
     2.1. [HTTP POST Request/POST Route Code Example](#http-post-requestpost-route-code-example)</br>
       2.1.1. [POST Request to Register Route Code Example](#post-request-to-register-route-code-example)</br>
@@ -32,16 +34,39 @@
     5.4 [Usage](#usage)</br>
     5.5 [Basic](#basic)</br>
     5.6 [bcryptjs and Salting Code Example](#bcryptjs-and-salting-code-example)</br>
+6.  [Security Level 5 - Cookies & Sessions](#security-level-5--cookies--sessions)
+        6.1 [Implementation with Passport.js](#implementation-with-passportjs)</br>
+        6.2 [Passport.js and Other Packages Installation](#passportjs-and-other-packages-installation)</br>
+        6.3 [express-session & Usage](#expresssession--usage)</br>
+          6.3.1 [Setup Express Session](#setup-express-session)</br>
+          6.3.2 [Initialize and Start Using passport.js](#initialize-and-start-using-passportjs)</br>
+          6.3.3 [Setup passport-local-mongoose](#setup-passportlocalmongoose)</br>
+          6.3.4 [passport-local Configuration](#passportlocal-configuration)</br>
+          6.3.5 [Fixing Deprecation Warning](#fixing-deprecation-warning)</br>
+        6.4 [GET Request to Secrets Route Code Example](#get-request-to-secrets-route-code-example)</br>
+        6.5 [GET Request to Logout Route Code Example](#get-request-to-logout-route-code-example)</br>
+        6.6 [POST Request to Register Route Code Example](#post-request-to-register-route-code-example)</br>
+        6.7 [POST Request to Login Route Code Example](#post-request-to-login-route-code-example)</br>
 
 * * *
 
 # [Express](https://expressjs.com/en/starter/installing.html)
+
+`Express.js`, or simply `Express`, is a _back end web application framework_ for `Node.js`, released as free and open-source software under the MIT License. It is designed for building web applications and APIs. It has been called the de facto standard server framework for `Node.js`.
+
+`Express` is the _back-end component_ of popular development stacks like the `MEAN`, `MERN` or `MEVN stack`, together with the `MongoDB` database software and a `JavaScript` front-end framework or library.
+
+The primary use of `Express` is to _provide server-side logic_ for web and mobile applications, and as such it's used all over the place.
+
+## Installation
 
 Use the npm init command to create a `package.json` file for your application.
 
 ```express
 npm init -y
 ```
+
+## Other Packages Installation
 
 Install some packages(`express`, `ejs`, `body-parser` and `mongoose`)
 
@@ -568,6 +593,197 @@ app.post("/login", function(req, res) {
           }
         });
       }
+    }
+  });
+});
+```
+
+* * *
+
+# Security Level 5 - Cookies & Sessions
+
+There are lots of different types of cookies but the types we are going to be looking at for this project are the ones that are used to establish and maintain a session. A session is a period of time when a browser interacts with a server.
+
+Usually when the user log into a website that is when the session starts and that is when the cookie gets created, and inside that cookie there will be the user's credentials that says this user is logged in and has been successfully authenticate, which means as the user continues to browse the website he will not be asked to login again when he tries to access a page that requires authentication because they can always check against that active cookie that is on the browser and it maintains the authentication for this browsing session until the point when the user log out, which is when the session ends and the cookie that is related to the session gest _destroyed_.
+
+## Implementation with Passport.js
+
+The _cookies_ and _sessions_ will be implemented into the website using 'Passport.js'.
+
+Passport.js is an authentication middleware for 'Node.js. Extremely flexible and modular, Passport.js can be unobtrusively dropped in to any 'Express-based' web application. A comprehensive set of strategies support authentication using a _username_ and a _password_, _Facebook_, _Twitter_, and _more_.
+
+## Passport.js and Other Packages Installation
+
+The packages to install are: `passport`, `passport-local`, `passport-local-mongoose`, and `express-session`.
+
+```js
+npm i passport passport-local passport-local-mongoose express-session
+```
+
+`express-session` is the first package that needs to be configured.
+
+It is extremely important to place the parts of the new code exactly where it is shown placed in the examples to follow.
+
+## [express-session](https://www.npmjs.com/package/express-session) & [passport-local-mongoose](http://www.passportjs.org/docs/) Usage
+
+```js
+const session = require('express-session')
+const passport = require("passport");
+const passportLocalMongoose = require("passport-local-mongoose");
+```
+
+> :warning: We don't need to require passport-local because it's one of those dependencies that will be needed by passport-local-mongoose
+
+### Setup Express Session
+
+```js
+//Set up express session
+app.use(session({
+  //js object with a number of properties (secret, resave, saveUninitialized)
+  secret: "Our little secret.",
+  resave: false,
+  saveUninitialized: false
+}));
+```
+
+### Initialize and Start Using passport.js
+
+```js
+//Initialize and start using passport.js
+app.use(passport.initialize());
+//Tell the app to use passport to also setup the sessions
+app.use(passport.session());
+```
+
+### Setup passport-local-mongoose
+
+In order to set up the passport-local-mongoose, it needs to be added to the mongoose schema as a plugin.
+
+That is what we will use now to hash and salt the passwords and to save the users into the mongoDB database.
+
+```js
+userSchema.plugin(passportLocalMongoose);
+```
+
+### passport-local Configuration
+
+Create a strategy which is going to be the _local_ strategy to authenticate users' by using their username and password and also to `serialize` and `deserialize` the user.
+
+_Serialize_ the user is to basically create the cookie and add inside the message - which is namely the users' identification - into the cookie.
+
+_Deserialize_ the user is to basically allow passport to be able to crumble the cookie and discover the message inside which is who the user is all of the users' identification so that we can _authenticate_ the user on the server.
+
+```js
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+```
+
+#### [Fixing Deprecation Warning](https://github.com/Automattic/mongoose/issues/6890#issuecomment-416218953)
+
+```js
+mongoose.set("useCreateIndex", true);
+```
+
+> :warning: After running nodemon app.js we may get the error below:
+> DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead
+
+## GET Request to Secrets Route Code Example
+
+```js
+//Target the secrets route to render the secrets page
+app.get("/secrets", function(req, res) {
+  /*
+  Check if the user is authenticated and this is where we are relying on
+  passport.js, session, passport-local and passport-local-mongoose to make sure
+  that if the user is already logged in then we should simply render the secrets page
+  but if the user is not logged in then we are going to redirect the user to the login page
+  */
+  if (req.isAuthenticated()) {
+    res.render("secrets");
+  } else {
+    res.render("login");
+  }
+});
+```
+
+## GET Request to Logout Route Code Example
+
+```js
+//Target the logout route
+app.get("/logout", function(req, res) {
+  //deauthenticate the user and end the user session
+  req.logout();
+  //redirect the user to the root route (home page)
+  res.redirect("/");
+});
+```
+
+## POST Request to Register Route Code Example
+
+Now we will incorporate `hashing`, `salting` and `authentication` using `passport.js` and the packages just added (`passport` `passport-local` `passport-local-mongoose` `express-session`).
+
+```js
+//POST request (register route) to post the username and password the user enter when registering
+app.post("/register", function(req, res) {
+
+  /*
+  Tap into the User model and call the register method, this method comes from
+  passport-local-mongoose package which will act as a middle-man to create and save the new user
+  and to interact with mongoose directly
+
+  js object -> {username: req.body.username}
+  */
+  User.register({
+    username: req.body.username
+  }, req.body.password, function(err, user) {
+    if (err) {
+      consolo.log(err);
+      //Redirect the user back to the register page if there are any error
+      res.redirect("/register");
+    } else {
+      /*
+      Authentica the user using passport if there are no errors
+      the callback (function()) below is only triggered if the authentication
+      is successfull and we managed to successfully setup a cookie that saved
+      their current logged in session
+      */
+      passport.authenticate("local")(req, res, function() {
+        /*
+        As we are authenticating the user and setting up a logged in session for him
+        then the user can go directly to the secret page, they should automatically
+        be able to view it if they are still logged in - so now we need to create a secrets route
+        */
+        res.redirect("/secrets");
+      });
+    }
+  });
+});
+```
+
+## POST Request to Login Route Code Example
+
+Now we will incorporate `hashing`, `salting` and `authentication` using `passport.js` and the packages just added (`passport` `passport-local` `passport-local-mongoose` `express-session`).
+
+```js
+//POST request (login route) to login the user
+app.post("/login", function(req, res) {
+
+  //Create a new user from the mongoose model with its two properties (username, password)
+  const user = new User({
+    username: req.body.username,
+    password: req.body.password
+  });
+
+  //Now use passport to login the user and authenticate him - take the user created from above
+  req.login(user, function(err) {
+    if (err) {
+      console.log(err);
+    } else {
+      //Authenticate the user if there are no errors
+      passport.authenticate("local")(req, res, function() {
+        res.redirect("/secrets");
+      });
     }
   });
 });
