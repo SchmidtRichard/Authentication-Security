@@ -34,10 +34,10 @@
     5.4 [Usage](#usage)</br>
     5.5 [Basic](#basic)</br>
     5.6 [bcryptjs and Salting Code Example](#bcryptjs-and-salting-code-example)</br>
-6.  [Security Level 5 - Cookies & Sessions](#security-level-5--cookies--sessions)
+6.  [Security Level 5 - Cookies and Sessions](#security-level-5--cookies-and-sessions)</br>
         6.1 [Implementation with Passport.js](#implementation-with-passportjs)</br>
         6.2 [Passport.js and Other Packages Installation](#passportjs-and-other-packages-installation)</br>
-        6.3 [express-session & Usage](#expresssession--usage)</br>
+        6.3 [express-session and Usage](#expresssession-and-usage)</br>
           6.3.1 [Setup Express Session](#setup-express-session)</br>
           6.3.2 [Initialize and Start Using passport.js](#initialize-and-start-using-passportjs)</br>
           6.3.3 [Setup passport-local-mongoose](#setup-passportlocalmongoose)</br>
@@ -600,17 +600,17 @@ app.post("/login", function(req, res) {
 
 * * *
 
-# Security Level 5 - Cookies & Sessions
+# Security Level 5 - Cookies and Sessions
 
 There are lots of different types of cookies but the types we are going to be looking at for this project are the ones that are used to establish and maintain a session. A session is a period of time when a browser interacts with a server.
 
-Usually when the user log into a website that is when the session starts and that is when the cookie gets created, and inside that cookie there will be the user's credentials that says this user is logged in and has been successfully authenticate, which means as the user continues to browse the website he will not be asked to login again when he tries to access a page that requires authentication because they can always check against that active cookie that is on the browser and it maintains the authentication for this browsing session until the point when the user log out, which is when the session ends and the cookie that is related to the session gest _destroyed_.
+Usually when the user log into a website that is when the session starts and that is when the cookie gets created, and inside that cookie there will be the user's credentials that says this user is logged in and has been successfully authenticate, which means as the user continues to browse the website he will not be asked to login again when he tries to access a page that requires authentication because they can always check against that active cookie that is on the browser and it maintains the authentication for this browsing session until the point when the user log out, which is when the session ends and the cookie that is related to the session gest **destroyed**.
 
-## Implementation with Passport.js
+## Implementation with [Passport.js](http://www.passportjs.org/docs/)
 
-The _cookies_ and _sessions_ will be implemented into the website using 'Passport.js'.
+The **cookies** and **sessions** will be implemented into the website using `Passport.js`.
 
-Passport.js is an authentication middleware for 'Node.js. Extremely flexible and modular, Passport.js can be unobtrusively dropped in to any 'Express-based' web application. A comprehensive set of strategies support authentication using a _username_ and a _password_, _Facebook_, _Twitter_, and _more_.
+Passport.js is an authentication middleware for `Node.js`. Extremely flexible and modular, Passport.js can be unobtrusively dropped in to any `Express-based` web application. A comprehensive set of strategies support authentication using a **username** and a **password**, **Facebook**, **Twitter**, and **more**.
 
 ## Passport.js and Other Packages Installation
 
@@ -624,7 +624,7 @@ npm i passport passport-local passport-local-mongoose express-session
 
 It is extremely important to place the parts of the new code exactly where it is shown placed in the examples to follow.
 
-## [express-session](https://www.npmjs.com/package/express-session) & [passport-local-mongoose](http://www.passportjs.org/docs/) Usage
+## [express-session](https://www.npmjs.com/package/express-session) and [passport-local-mongoose](https://www.npmjs.com/package/passport-local-mongoose) Usage
 
 ```js
 const session = require('express-session')
@@ -685,7 +685,7 @@ passport.deserializeUser(User.deserializeUser());
 mongoose.set("useCreateIndex", true);
 ```
 
-> :warning: After running nodemon app.js we may get the error below:
+> :warning: After running nodemon app.js we may get the error below:</br>
 > DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead
 
 ## GET Request to Secrets Route Code Example
