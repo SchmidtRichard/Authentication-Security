@@ -18,6 +18,8 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const findOrCreate = require("mongoose-findorcreate");
 
+const emoji = require("node-emoji");
+
 //Create a new app instance using express
 const app = express();
 
@@ -151,10 +153,12 @@ passport.use(new GoogleStrategy({
   function(accessToken, refreshToken, profile, cb) {
     //Check out what we get back from Google
     console.log("\n");
-    console.log("/////////////////////////////////////////////////////////////////////////");
-    console.log("//////////////// CHECK OUT WHAT WE GOT BACK FROM GOOGLE ////////////////");
+    console.log(emoji.get("balloon"), " ", emoji.get("balloon"), " ", emoji.get("balloon"), " ", emoji.get("balloon"), " ", emoji.get("balloon"), " ", emoji.get("balloon"), " ", emoji.get("balloon"), " ", emoji.get("balloon"), " ", emoji.get("balloon"), " ", emoji.get("balloon"), " ", emoji.get("balloon"), " ", emoji.get("balloon"), " ", emoji.get("balloon"), " ", emoji.get("balloon"), " ", emoji.get("balloon"), " ", emoji.get("balloon"), " ", emoji.get("balloon"), " ", emoji.get("balloon"), " ", );
+    console.log("\n");
+    console.log(emoji.get("earth_americas"), " ", emoji.get("computer"), " ", emoji.get("fireworks"), "  CHECK OUT WHAT WE GOT BACK FROM GOOGLE ", emoji.get("dart"), " ", emoji.get("trophy"), " ", emoji.get("milky_way"));
     console.log(profile);
-    console.log("/////////////////////////////////////////////////////////////////////////");
+    console.log("\n");
+    console.log(emoji.get("balloon"), " ", emoji.get("balloon"), " ", emoji.get("balloon"), " ", emoji.get("balloon"), " ", emoji.get("balloon"), " ", emoji.get("balloon"), " ", emoji.get("balloon"), " ", emoji.get("balloon"), " ", emoji.get("balloon"), " ", emoji.get("balloon"), " ", emoji.get("balloon"), " ", emoji.get("balloon"), " ", emoji.get("balloon"), " ", emoji.get("balloon"), " ", emoji.get("balloon"), " ", emoji.get("balloon"), " ", emoji.get("balloon"), " ", emoji.get("balloon"), " ", );
     console.log("\n");
 
     /*
@@ -373,7 +377,13 @@ app.listen(3000, function() {
   console.log("###############################################################################");
   console.log("###############################################################################");
   console.log("###############################################################################");
-  console.log("                      SERVER STARTED ON PORT 3000!!!");
+  console.log("###############################################################################");
+  console.log("###############################################################################");
+  console.log("\n");
+  console.log(emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), "  SERVER STARTED ON PORT 3000!!! ", emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"));
+  console.log("\n");
+  console.log("###############################################################################");
+  console.log("###############################################################################");
   console.log("###############################################################################");
   console.log("###############################################################################");
   console.log("###############################################################################");

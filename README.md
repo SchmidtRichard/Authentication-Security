@@ -713,7 +713,7 @@ mongoose.set("useCreateIndex", true);
 
 > :warning: **WARNING**</br></br>
 > After running nodemon app.js we may get the error below:</br>
->      DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead
+> DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead
 
 ## GET Request to Secrets Route Code Example
 
@@ -728,7 +728,7 @@ app.get("/secrets", function(req, res) {
   the code to fix it is the one below so the page will not be cached
   */
 
-  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stal   e=0, post-check=0, pre-check=0');
+  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stal e=0, post-check=0, pre-check=0');
 
   /*
   Check if the user is authenticated and this is where we are relying on
@@ -995,23 +995,23 @@ passport.use(new GoogleStrategy({
             userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
           },
           /*
-          In this callback function is where Google sends back an access token (accessToken), which is
-          the thing that allows us to get data related to that user which allows us to access the user's
-          data for a longer period of time
+          In this callback function is where Google sends back an access token (accessToken), which
+          is the thing that allows us to get data related to that user which allows us to access the
+          user's data for a longer period of time
 
-          We also get their profile which is essentially what we are interested in because that is what
-          will contain their email, Google ID, and anything else that we have access to
+          We also get their profile which is essentially what we are interested in because that is
+          what will contain their email, Google ID, and anything else that we have access to
           */
           function(accessToken, refreshToken, profile, cb) {
             /*
             And finally we use the data that we get back, namely their Google ID to either find a
             user with that ID in our database of users or to create them if they don't exist
 
-            _____________________________________________________________________________________________________________
+            _________________________________________________________________________________________
 
-            User.findOrCreate is not actually a function, it is something that passport came up with as a
-            pseudo code(fake code) and they are basically trying to tell you to implement some sort of
-            functionality to find or create the user, and we can use [mongoose-findorcreate]
+            User.findOrCreate is not actually a function, it is something that passport came up with
+            as a pseudo code(fake code) and they are basically trying to tell you to implement some
+            sort of functionality to find or create the user, and we can use [mongoose-findorcreate]
             (https://stackoverflow.com/a/41355218) to do it as this [Mongoose Plugin]
             (https://www.npmjs.com/package/mongoose-findorcreate) essentially allows us to make that
             pseudo code work as **Mongoose Plugin's** team created that function in
@@ -1022,8 +1022,8 @@ passport.use(new GoogleStrategy({
 
             Now the last step is to add it as a **plugin** to our **schema**
 
-            Now the code should work and we should be able to tap into our **User model** and call the `findOrCreate`
-            function that previously did not exist
+            Now the code should work and we should be able to tap into our **User model** and
+            call the `findOrCreate` function that previously did not exist
             */
         User.findOrCreate({
           googleId: profile.id
@@ -1147,3 +1147,13 @@ At the moment when we get the data back from **Google**, we not only log their p
 So we need to add a new field (`googleId`) to our users collection and now the user registers on our website we are going to find and see if we already have a record of their **GoogleID** in **user** mongoDB database in which case we are going to **save** all the new data associated with that **ID**, or otherwise we are going to **create** it in our database and **save** this information for future
 
 Because we are authenticating the users using their Google we only get what is equivalent to their user name on the Google user database, we don't get their password and this is great because it means we don't have to save and take care of it, and if it gets lost or it gets **leaked** that is all on Google and they have a lot more engineers and resources to keep their users' passwords or whatever other pieces of information safe, and all we need to do is just to retrieve it when we need it (`googleId`).
+
+* * *
+
+# node-emoji
+
+<https://www.npmjs.com/package/node-emoji>
+
+<https://github.com/omnidan/node-emoji#readme>
+
+<https://raw.githubusercontent.com/omnidan/node-emoji/master/lib/emoji.json>
