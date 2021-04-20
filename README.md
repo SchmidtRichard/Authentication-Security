@@ -48,12 +48,29 @@
         6.6 [POST Request to Register Route Code Example](#post-request-to-register-route-code-example)</br>
         6.7 [POST Request to Login Route Code Example](#post-request-to-login-route-code-example)</br>
 7.  [Security Level 6 - OAuth2.0 (Open Authorisation) & How to Implement Sign In with Google](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#security-level-6---oauth20-open-authorisation--how-to-implement-sign-in-with-google)</br>
-    7.1 [Why OAuth?](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#why-oauth)</br>
-        7.1.1 [1. Granular Access Levels](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#1--granular-access-levels)</br>
-        7.1.2 [2. Read/Read+Write Access](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#2--readreadwrite-access)</br>
-        7.1.3. [3. Revoke Access](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#3--revoke-access)</br>
-    7.2 [OAuth Steps](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#oauth-steps)</br>
-        7.2.1 [First Step - Set Up The App](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#first-step---set-up-the-app)</br>
+      7.1 [Why OAuth?](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#why-oauth)</br>
+          7.1.1 [1. Granular Access Levels](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#1--granular-access-levels)</br>
+          7.1.2 [2. Read/Read+Write Access](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#2--readreadwrite-access)</br>
+          7.1.3. [3. Revoke Access](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#3--revoke-access)</br>
+      7.2 [OAuth Steps](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#oauth-steps)</br>
+          7.2.1 [First Step - Set Up The App](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#first-step---set-up-the-app)</br>
+          7.2.2 [Second Step - Redirect to Authenticate](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#second-step---redirect-to-authenticate)</br>
+          7.2.3 [Third Step - User Logs In](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#third-step---user-logs-in)</br>
+          7.2.4 [Fourth Step - User Grants Permissions](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#fourth-step---user-grants-permissions)</br>
+          7.2.5 [Fifth Step - Receive Authorisation Code](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#fifth-step---receive-authorisation-code)</br>
+          7.2.6 [Sixth Step - Exchange AuthCode for Access Token](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#sixth-step---exchange-authcode-for-access-token)</br>
+      7.3 [Passport Strategy for Authenticating with Google Using the OAuth 2.0 API](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#passport-strategy-for-authenticating-with-google-using-the-oauth-20-api)</br>
+          7.3.1 [passport-google-oauth20 Installation](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#passport-google-oauth20-installation)</br>
+          7.3.2 [passport-google-oauth20 Usage](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#passport-google-oauth20-usage)</br>
+          7.3.2.1 [passport-google-oauth20 Create an Application](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#passport-google-oauth20-create-an-application)</br>
+          7.3.2.2.1 [Inside Google Console](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#inside-google-console)</br>
+          7.3.2.3 [passport-google-oauth20 Configure Strategy](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#passport-google-oauth20-configure-strategy)</br>
+          7.3.2.4 [passport-google-oauth20 Configure Strategy Code Example](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#passport-google-oauth20-configure-strategy-code-example)</br>
+          7.3.2.5.1 [mongoose-findorcreate Installation](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#mongoose-findorcreate-installation)</br>
+          7.3.2.5.2 [mongoose-findorcreate Usage](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#mongoose-findorcreate-usage)</br>
+          7.3.2.5.3 [Now the last step is to add it as a plugin to our schema](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#now-the-last-step-is-to-add-it-as-a-plugin-to-our-schema)</br>
+          7.3.2.6 [passport-google-oauth20 Authenticate Requests](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#passport-google-oauth20-authenticate-requests)</br>
+          7.3.2.7 [passport-google-oauth20 Authenticate Requests Code Example](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#passport-google-oauth20-authenticate-requests-code-example)</br>
 
 * * *
 
@@ -703,8 +720,9 @@ app.get("/secrets", function(req, res) {
 
   /*
   Course code was allowing the user to go back to the secrets page after loggin out,
-  that is because when we access a page, it is cached by the browser, so when the user is accessing a cached page (like the secrets one)
-  you can go back by pressing the back button on the browser, the code to fix it is the one below so the page will not be cached
+  that is because when we access a page, it is cached by the browser, so when the user is accessing a
+  cached page (like the secrets one) you can go back by pressing the back button on the browser,
+  the code to fix it is the one below so the page will not be cached
   */
 
   res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stal   e=0, post-check=0, pre-check=0');
@@ -743,7 +761,10 @@ Now we will incorporate `hashing`, `salting` and `authentication` using `passpor
 //POST request (register route) to post the username and password the user enter when registering
 app.post("/register", function(req, res) {
 
-  //  Now we will incorporate hashing and salting and authentication using passport.js and the packages just added (passport passport-local passport-local-mongoose express-session)
+  /*
+  Now we will incorporate hashing and salting and authentication using passport.js and the packages
+  just added (passport passport-local passport-local-mongoose express-session)
+  */
 
   /*
   Tap into the User model and call the register method, this method comes from
@@ -790,13 +811,16 @@ Now we will incorporate `hashing`, `salting` and `authentication` using `passpor
 passport.authenticate("local")
 
 Course code was allowing the user to enter the right username (email) and wrong password
-and go to the secrets page by typing in http://localhost:3000/secrets in the browser after getting the Unauthorized page message,
-now the addition of passport.authenticate("local")to the app.post... route fixes this issue
+and go to the secrets page by typing in http://localhost:3000/secrets in the browser after getting the Unauthorized
+page message, now the addition of passport.authenticate("local")to the app.post... route fixes this issue
 */
 
 app.post("/login", passport.authenticate("local"), function(req, res) {
 
-  //Now we will incorporate hashing and salting and authentication using passport.js and the packages just added (passport passport-local passport-local-mongoose express-session)
+  /*
+  Now we will incorporate hashing and salting and authentication using passport.js and the packages
+  just added (passport passport-local passport-local-mongoose express-session)
+  */
 
   //Create a new user from the mongoose model with its two properties (username, password)
   const user = new User({
@@ -953,11 +977,9 @@ passport.use(new GoogleStrategy({
 
 > :warning:
 >      There is just one more thing we need to [add](https://github.com/jaredhanson/passport-google-oauth2#readme) to this configuration because Google is sunsetting the **Google+ API (deprecated)** and all things related to Google+, previously this package relied on [Google+](https://github.com/jaredhanson/passport-google-oauth2/issues/50#issuecomment-449188012) to obtain user information so they got the user's Google+ profile and we need to [fix the deprecation of the Google+ API](https://github.com/jaredhanson/passport-google-oauth2/pull/51) by adding `userProfileURL: 'https://www.googleapis.com/oauth2/v3/userinfo'` to the **strategy options ((use the oauth userinfo endpoint instead of G+)**.
->
->      So now when we use `passport` to **authenticate** our users using **Google OAuth** we are no longer gonna be retrieving their profile information from their **Google+** account but instead we are going to retrieve it from their info which is simply another **endpoint** on Google.
->
->      It is very likely that at some point if the **Google+ API** deprecates then the code might not work and we are probably going to get some warnings down the line in the console telling something like: **"Google+ API deprecated. Fix it by doing this..."**</br>
->      So now the code looks like the below:
+>     So now when we use `passport` to **authenticate** our users using **Google OAuth** we are no longer gonna be retrieving their profile information from their **Google+** account but instead we are going to retrieve it from their info which is simply another **endpoint** on Google.
+>     It is very likely that at some point if the **Google+ API** deprecates then the code might not work and we are probably going to get some warnings down the line in the console telling something like: **"Google+ API deprecated. Fix it by doing this..."**
+>     So now the code looks like the below:
 
 #### passport-google-oauth20 Configure Strategy Code Example
 
@@ -981,7 +1003,7 @@ passport.use(new GoogleStrategy({
             And finally we use the data that we get back, namely their Google ID to either find a
             user with that ID in our database of users or to create them if they don't exist
 
-            ____________________________________________________________________________________________________________________
+            _____________________________________________________________________________________________________________
 
             User.findOrCreate is not actually a function, it is something that passport came up with as a
             pseudo code(fake code) and they are basically trying to tell you to implement some sort of
