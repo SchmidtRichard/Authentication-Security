@@ -114,6 +114,16 @@ app.get("/register", function(req, res) {
 
 //Target the secrets route to render the secrets page
 app.get("/secrets", function(req, res) {
+
+  /*
+  Course code was allowing the user to go back to the secrets page after loggin out,
+  that is because when we access a page, it is cached by the browser, so when the user is accessing a cached page (like the secrets one)
+  you can go back by pressing the back button on the browser, the code to fix it is the one below so the page will not be cached
+  */
+
+
+  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stal   e=0, post-check=0, pre-check=0');
+
   /*
   Check if the user is authenticated and this is where we are relying on
   passport.js, session, passport-local and passport-local-mongoose to make sure
@@ -174,7 +184,16 @@ app.post("/register", function(req, res) {
 });
 
 //POST request (login route) to login the user
-app.post("/login", function(req, res) {
+
+/*
+passport.authenticate("local")
+
+Course code was allowing the user to enter the right username (email) and wrong password
+and go to the secrets page by typing in http://localhost:3000/secrets in the browser after getting the Unauthorized page message,
+now the addition of passport.authenticate("local")to the app.post... route fixes this issue
+*/
+
+app.post("/login", passport.authenticate("local"), function(req, res) {
 
   //Now we will incorporate hashing and salting and authentication using passport.js and the packages just added (passport passport-local passport-local-mongoose express-session)
 
