@@ -11,16 +11,16 @@
     3.1 [How it Works](#how-it-works)</br>
     3.2 [Installation](#installation)</br>
     3.3 [Usage](#usage)</br>
-           3.1.1 [Basic](#basic)</br>
-      3.1.2 [Encrypt Only Certain Fields](#encrypt-only-certain-fields)</br>
-      3.1.3 [Secret String Instead of Two Keys](#secret-string-instead-of-two-keys)</br>
+          3.1.1 [Basic](#basic)</br>
+          3.1.2 [Encrypt Only Certain Fields](#encrypt-only-certain-fields)</br>
+          3.1.3 [Secret String Instead of Two Keys](#secret-string-instead-of-two-keys)</br>
     3.4 [Mongoose Encryption Code Example](#mongoose-encryption-code-example)</br>
     3.5 [Environment Variables to Keep Secrets Safe](#environment-variables-to-keep-secrets-safe)</br>
-      3.5.1 [dotenv](#dotenv)</br>
-      3.5.2 [Installation](#installation)</br>
-      3.5.3 [Usage](#usage)</br>
-      3.5.4 [Environment Variables to Keep Secrets Safe Code Example](#environment-variables-to-keep-secrets-safe-code-example)</br>
-    3.6 [.gitignore](#gitignore)</br>
+          3.5.1 [dotenv](#dotenv)</br>
+          3.5.2 [Installation](#installation)</br>
+          3.5.3 [Usage](#usage)</br>
+          3.5.4 [Environment Variables to Keep Secrets Safe Code Example](#environment-variables-to-keep-secrets-safe-code-example)</br>
+        3.6 [.gitignore](#gitignore)</br>
 4.  [Security Level 3 - Hash](#security-level-3---hash)</br>
     4.1 [MD5](#md5)</br>
     4.2 [Installation](#installation)</br>
@@ -29,7 +29,7 @@
 5.  [Security Level 4 - Salting and Hashing Passwords with bcryptjs](#security-level-4---salting-and-hashing-passwords-with-bcryptjs)</br>
     5.1 [bcryptjs Hashing Algorithm (replaces MD5)](#bcryptjs-hashing-algorithm-replaces-md5)</br>
     5.2 [Salting](#salting)</br>
-      5.2.1 [Salt Rounds](#salt-rounds)</br>
+          5.2.1 [Salt Rounds](#salt-rounds)</br>
     5.3 [Installation](#installation)</br>
     5.4 [Usage](#usage)</br>
     5.5 [Basic](#basic)</br>
@@ -38,15 +38,22 @@
         6.1 [Implementation with Passport.js](#implementation-with-passportjs)</br>
         6.2 [Passport.js and Other Packages Installation](#passportjs-and-other-packages-installation)</br>
         6.3 [express-session and Usage](#express---session-and-usage)</br>
-          6.3.1 [Setup Express Session](#setup-express-session)</br>
-          6.3.2 [Initialize and Start Using passport.js](#initialize-and-start-using-passportjs)</br>
-          6.3.3 [Setup passport-local-mongoose](#setup-passport---local---mongoose)</br>
-          6.3.4 [passport-local Configuration](#passport---local-configuration)</br>
-          6.3.5 [Fixing Deprecation Warning](#fixing-deprecation-warning)</br>
+              6.3.1 [Setup Express Session](#setup-express-session)</br>
+              6.3.2 [Initialize and Start Using passport.js](#initialize-and-start-using-passportjs)</br>
+              6.3.3 [Setup passport-local-mongoose](#setup-passport---local---mongoose)</br>
+              6.3.4 [passport-local Configuration](#passport---local-configuration)</br>
+              6.3.5 [Fixing Deprecation Warning](#fixing-deprecation-warning)</br>
         6.4 [GET Request to Secrets Route Code Example](#get-request-to-secrets-route-code-example)</br>
         6.5 [GET Request to Logout Route Code Example](#get-request-to-logout-route-code-example)</br>
         6.6 [POST Request to Register Route Code Example](#post-request-to-register-route-code-example)</br>
         6.7 [POST Request to Login Route Code Example](#post-request-to-login-route-code-example)</br>
+7.  [Security Level 6 - OAuth2.0 (Open Authorisation) & How to Implement Sign In with Google](#https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#security-level-6---oauth20-open-authorisation--how-to-implement-sign-in-with-google)</br>
+    7.1 [Why OAuth?](#https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#why-oauth)</br>
+    7.1.1 [1. Granular Access Levels](#https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#1--granular-access-levels)</br>
+    7.1.2 [2. Read/Read+Write Access](#https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#2--readreadwrite-access)</br>
+    7.1.3. [3. Revoke Access](#https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#3--revoke-access)</br>
+    7.2 [OAuth Steps](#https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#oauth-steps)</br>
+    7.2.1 [First Step - Set Up The App](#https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#first-step---set-up-the-app)</br>
 
 * * *
 
@@ -686,7 +693,7 @@ mongoose.set("useCreateIndex", true);
 ```
 
 > :warning:  After running nodemon app.js we may get the error below:</br>
->     DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead
+>      DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead
 
 ## GET Request to Secrets Route Code Example
 
@@ -823,15 +830,15 @@ A big benefit of using it involves delegating the task of managing passwords sec
 
 ### 1.  Granular Access Levels
 
-    That means that when a user logs in with Facebook, Google, etc, you can request specific things from their Facebook, Google, etc, account, for example if for your app you only need their profile and email address then you can only request these info, however, if the app is similar to Tinder, then you can also request their list of friends so the app does not accidently match them with their friends.
+That means that when a user logs in with Facebook, Google, etc, you can request specific things from their Facebook, Google, etc, account, for example if for your app you only need their profile and email address then you can only request these info, however, if the app is similar to Tinder, then you can also request their list of friends so the app does not accidently match them with their friends.
 
 ### 2.  Read/Read+Write Access
 
-    In the case of Facebook for example, you can either ask them to just retrieve pieces of information about their Facebook account like their name, email, etc, or you can ask for write access as well, for example WordPress wanted to be able to post to Facebook on this user's account then they would need to ask for read and write access.
+In the case of Facebook for example, you can either ask them to just retrieve pieces of information about their Facebook account like their name, email, etc, or you can ask for write access as well, for example WordPress wanted to be able to post to Facebook on this user's account then they would need to ask for read and write access.
 
 ### 3.  Revoke Access
 
-    The third party you are using (OAuth 2.0) should be able to revoke access at any point on their website. That means if the user is authenticating with Facebook for example, the user should be able to go into their Facebook account and deauthorize the access that they granted to your website (Secrets website for example), and the user does not need to go to the Secrets page where the page may be less keen to give up this access for example.
+The third party you are using (OAuth 2.0) should be able to revoke access at any point on their website. That means if the user is authenticating with Facebook for example, the user should be able to go into their Facebook account and deauthorize the access that they granted to your website (Secrets website for example), and the user does not need to go to the Secrets page where the page may be less keen to give up this access for example.
 
 ## OAuth Steps
 
@@ -913,8 +920,8 @@ Scopes are the fields that you will receive once the user logs in through Google
 4.  Choose **Web application** as the **Application type**
 5.  Add the name of the app(Secrets) to the **name** field
 6.  There are 2 other fields we have to fill in: **Authorised JavaScript origins** - where is that request to Google going to come from, and in this case it is going to come from our localhost - and **Authorised redirect URIs** - this is a route that we are going to plan out our server when Google has authenticated our user to return to, so that we can then locally authenticate them and save the session and cookies and all of that.
-    6.1. Authorised JavaScript origins: Click on **+ ADD URI** and add **<http://localhost:3000>**, and this is obviously for when we are testing, and once the website is live we can come back here and change it anytime.
-    6.2. Authorised redirect URIs: Click on **+ ADD URI** and add **<http://localhost:3000/auth/google/secrets>**
+    6.1. Authorised JavaScript origins: Click on **+ ADD URI** and add `http://localhost:3000`, and this is obviously for when we are testing, and once the website is live we can come back here and change it anytime.
+    6.2. Authorised redirect URIs: Click on **+ ADD URI** and add `http://localhost:3000/auth/google/secrets>`
 7.  Click on **CREATE**
 8.  Now we get an **OAuth client created** message with the **Client ID** and **Client Secret**. These are super important pieces of information and they will be stored in our `.env` (check out `.env`file) file for security reasons.
 
@@ -945,10 +952,12 @@ passport.use(new GoogleStrategy({
 ```
 
 > :warning:
-> There is just one more thing we need to [add](https://github.com/jaredhanson/passport-google-oauth2#readme) to this configuration because Google is sunsetting the **Google+ API (deprecated)** and all things related to Google+, previously this package relied on [Google+](https://github.com/jaredhanson/passport-google-oauth2/issues/50#issuecomment-449188012) to obtain user information so they got the user's Google+ profile and we need to [fix the deprecation of the Google+ API](https://github.com/jaredhanson/passport-google-oauth2/pull/51) by adding `userProfileURL: 'https://www.googleapis.com/oauth2/v3/userinfo'` to the **strategy options ((use the oauth userinfo endpoint instead of G+)**.
-> So now when we use `passport` to **authenticate** our users using **Google OAuth** we are no longer gonna be retrieving their profile information from their **Google+** account but instead we are going to retrieve it from their info which is simply another **endpoint** on Google.</br>
-> It is very likely that at some point if the **Google+ API** deprecates then the code might not work and we are probably going to get some warnings down the line in the console telling something like: **"Google+ API deprecated. Fix it by doing this..."**</br>
-> So now the code looks like the below:
+>      There is just one more thing we need to [add](https://github.com/jaredhanson/passport-google-oauth2#readme) to this configuration because Google is sunsetting the **Google+ API (deprecated)** and all things related to Google+, previously this package relied on [Google+](https://github.com/jaredhanson/passport-google-oauth2/issues/50#issuecomment-449188012) to obtain user information so they got the user's Google+ profile and we need to [fix the deprecation of the Google+ API](https://github.com/jaredhanson/passport-google-oauth2/pull/51) by adding `userProfileURL: 'https://www.googleapis.com/oauth2/v3/userinfo'` to the **strategy options ((use the oauth userinfo endpoint instead of G+)**.
+>
+>      So now when we use `passport` to **authenticate** our users using **Google OAuth** we are no longer gonna be retrieving their profile information from their **Google+** account but instead we are going to retrieve it from their info which is simply another **endpoint** on Google.
+>
+>      It is very likely that at some point if the **Google+ API** deprecates then the code might not work and we are probably going to get some warnings down the line in the console telling something like: **"Google+ API deprecated. Fix it by doing this..."**</br>
+>      So now the code looks like the below:
 
 #### passport-google-oauth20 Configure Strategy Code Example
 
@@ -974,18 +983,21 @@ passport.use(new GoogleStrategy({
 
             ____________________________________________________________________________________________________________________
 
-            User.findOrCreate is not actually a function, it is something that passport came up with as a pseudo code(fake code)
-            and they are basically trying to tell you to implement some sort of functionality to find or create the user, and we
-            can use [mongoose-findorcreate](https://stackoverflow.com/a/41355218) to do it as this [Mongoose Plugin](https://www.npmjs.com/package/mongoose-findorcreate)
-            essentially allows us to make that pseudo code work as **Mongoose Plugin's** team created that function in
+            User.findOrCreate is not actually a function, it is something that passport came up with as a
+            pseudo code(fake code) and they are basically trying to tell you to implement some sort of
+            functionality to find or create the user, and we can use [mongoose-findorcreate]
+            (https://stackoverflow.com/a/41355218) to do it as this [Mongoose Plugin]
+            (https://www.npmjs.com/package/mongoose-findorcreate) essentially allows us to make that
+            pseudo code work as **Mongoose Plugin's** team created that function in
             the package and it does exactly what the pseudo code was supposed to do.
 
-            We only need to install the `mongoose-findorcreate` package, require it, and add it as a plugin to our
-            schema to make it work.
+            We only need to install the `mongoose-findorcreate` package, require it, and add it as a
+            plugin to our schema to make it work.
 
             Now the last step is to add it as a **plugin** to our **schema**
 
-            Now the code should work and we should be able to tap into our **User model** and call the `findOrCreate` function that previously did not exist
+            Now the code should work and we should be able to tap into our **User model** and call the `findOrCreate`
+            function that previously did not exist
             */
         User.findOrCreate({
           googleId: profile.id
@@ -1021,7 +1033,7 @@ Use `passport.authenticate()`, specifying the `'google'` strategy, to authentica
 For example, as route middleware in an **Express** application.
 
 > :warning:
-> In order to fix the `Cannot GET /auth/google/secrets` error message we get after trying to login/register to the **Secrets** page using **Google**, we need to add this route to be able to authenticate them `locally` on our website and to save their **login session** using **sessions** and **cookies**.
+>      In order to fix the `Cannot GET /auth/google/secrets` error message we get after trying to login/register to the **Secrets** page using **Google**, we need to add this route to be able to authenticate them `locally` on our website and to save their **login session** using **sessions** and **cookies**.
 
 ```js
 app.get('/auth/google',
@@ -1036,8 +1048,8 @@ app.get('/auth/google/callback',
 ```
 
 > :warning:
-> Error: Failed to serialize user into session
-> In order to fix the error above we need to replace our [serialize and deserialize](http://www.passportjs.org/docs/configure/) code to work for all **different strategies**, not just for the **local strategy**.
+>      Error: Failed to serialize user into session
+>      In order to fix the error above we need to replace our [serialize and deserialize](http://www.passportjs.org/docs/configure/) code to work for all **different strategies**, not just for the **local strategy**.
 
 ```js
 passport.serializeUser(function(user, done) {
