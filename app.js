@@ -15,6 +15,8 @@ const session = require("express-session");
 const passport = require("passport");
 //We don't need to require passport-local because it's one of those dependencies that will be needed by passport-local-mongoose
 const passportLocalMongoose = require("passport-local-mongoose");
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const findOrCreate = require("mongoose-findorcreate");
 
 //Create a new app instance using express
 const app = express();
@@ -29,7 +31,6 @@ app.use(bodyParser.urlencoded({
 
 //Tell the app to use all the statics files inside the public folder
 app.use(express.static("public"));
-
 
 //Set up express session
 app.use(session({
@@ -63,7 +64,8 @@ it is now an object created from the mongoose.Schema class
 */
 const userSchema = new mongoose.Schema({
   email: String,
-  password: String
+  password: String,
+  googleId: String
 });
 
 /*
@@ -74,6 +76,12 @@ That is what we will use now to hash and salt the passwords
 and to save the users into the mongoDB database
 */
 userSchema.plugin(passportLocalMongoose);
+
+/*
+Simple plugin for Mongoose which adds a findOrCreate method to models.
+This is useful for libraries like Passport which require it.
+*/
+userSchema.plugin(findOrCreate);
 
 //Setup a new User model and specify the name of the collection User
 const User = new mongoose.model("User", userSchema);
@@ -93,14 +101,150 @@ the cookie and discover the message inside which is who the user is all of the u
 identification so that we can authenticate the user on the server
 */
 passport.use(User.createStrategy());
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+/*
+Error: Failed to serialize user into session
+
+In order to fix the error above we need to replace our serialize
+and deserialize code to work for all different strategies,
+not just for the local strategy
+*/
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(err, user) {
+    done(err, user);
+  });
+});
+
+/*
+Set up the Google Strategy and configure it using all of those details we received when we created
+the passport-google-oauth20 application such as the Client ID and Client Secret, as well
+as the Authorised redirect URIs
+*/
+passport.use(new GoogleStrategy({
+    clientID: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
+    callbackURL: "http://localhost:3000/auth/google/secrets",
+    /*
+    So now when we use passport to authenticate our users using Google OAuth we are no longer
+    gonna be retrieving their profile information from their Google+ account but instead we are
+    going to retrieve it from their info which is simply another endpoint on Google.
+
+    It is very likely that at some point if the Google+ API deprecates then the code might
+    not work and we are probably going to get some warnings down the line in the console telling
+    something like: "Google+ API deprecated. Fix it by doing this..."
+    So now the code looks like the below:
+    */
+    userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
+  },
+
+  /*
+  In this callback function is where Google sends back an access token (accessToken), which is
+  the thing that allows us to get data related to that user which allows us to access the user's
+  data for a longer period of time
+
+  We also get their profile which is essentially what we are interested in because that is what
+  will contain their email, Google ID, and anything else that we have access to
+  */
+  function(accessToken, refreshToken, profile, cb) {
+    //Check out what we get back from Google
+    console.log("\n");
+    console.log("/////////////////////////////////////////////////////////////////////////");
+    console.log("//////////////// CHECK OUT WHAT WE GOT BACK FROM GOOGLE ////////////////");
+    console.log(profile);
+    console.log("/////////////////////////////////////////////////////////////////////////");
+    console.log("\n");
+
+    /*
+    And finally we use the data that we get back, namely their Google ID to either find a
+    user with that ID in our database of users or to create them if they don't exist
+
+    _____________________________________________________________________________________________________________________
+
+    User.findOrCreate is not actually a function, it is something that passport came up with as a pseudo code(fake code)
+    and they are basically trying to tell you to implement some sort of functionality to find or create the user, and we
+    can use mongoose-findorcreate to do it as this Mongoose Plugin essentially allows us to make that pseudo code work as
+    Mongoose Plugin's team created that function in the package and it does exactly what the pseudo code was supposed to do.
+
+    We only need to install the `mongoose-findorcreate` package, require it, and add it as a plugin to our
+    schema to make it work.
+
+    Now the last step is to add it as a **plugin** to our **schema**
+
+    Now the code should work and we should be able to tap into our User model and call the `findOrCreate` function
+    that previously did not exist
+    */
+    User.findOrCreate({
+      googleId: profile.id
+    }, function(err, user) {
+      return cb(err, user);
+    });
+  }
+));
 
 //Add some GETs to view the EJS files/websites
 //Target the home/root route to render the home page
 app.get("/", function(req, res) {
   res.render("home");
 });
+
+
+
+
+/*
+GET request for the button the user clicks when trying to
+login/register with Google (login.ejs - register.ejs)
+*/
+app.get('/auth/google',
+  /*
+  Use passport to authenticate our user using the strategy (google strategy)
+  that we want to authenticate our user with
+  */
+  passport.authenticate('google', {
+    /*
+    Then we are saying when we hit up Google, we are goint to tell
+    them that what we want is the user 's profile and this includes
+    their email address as well as their user ID on Google which
+    we will be able to use and identify them in the future. Once that's
+    been successful, Google will redirect the user back to our website
+    and make a GET request to "/auth/google/secrets" (next app.get... code below)
+    and that is where will authenticate them locally and save their login session
+    */
+    scope: ["profile"]
+    /*
+    passport.authenticate('google', { scope: ['profile'] })
+    should be enough to bring up a pop up that allows the user
+    to sign into their Google account
+    */
+  }));
+
+/*
+This GET request gets made by Google when they try to redirect the user back
+to our website and this string "/auth/google/callback" has to match what
+we specified to Google previously
+*/
+app.get("/auth/google/secrets",
+  /*
+  authenticate the user locally and if there were any
+  problems send them back to the login page again
+  */
+  passport.authenticate('google', {
+    failureRedirect: "/login"
+  }),
+  function(req, res) {
+    /*
+    Successful authentication
+
+    But if there are no problems then we can redirect them to the /secrets page
+    or any other sort of privileged page we may have
+    */
+    res.redirect("/secrets");
+  });
+
+
+
 
 //Target the login route to render the login page
 app.get("/login", function(req, res) {
@@ -117,8 +261,9 @@ app.get("/secrets", function(req, res) {
 
   /*
   Course code was allowing the user to go back to the secrets page after loggin out,
-  that is because when we access a page, it is cached by the browser, so when the user is accessing a cached page (like the secrets one)
-  you can go back by pressing the back button on the browser, the code to fix it is the one below so the page will not be cached
+  that is because when we access a page, it is cached by the browser, so when the user is accessing
+  a cached page (like the secrets one) you can go back by pressing the back button on the browser,
+  the code to fix it is the one below so the page will not be cached
   */
 
   res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stal   e=0, post-check=0, pre-check=0');
@@ -147,7 +292,10 @@ app.get("/logout", function(req, res) {
 //POST request (register route) to post the username and password the user enter when registering
 app.post("/register", function(req, res) {
 
-  //  Now we will incorporate hashing and salting and authentication using passport.js and the packages just added (passport passport-local passport-local-mongoose express-session)
+  /*
+  Now we will incorporate hashing and salting and authentication using passport.js and the
+  packages just added (passport passport-local passport-local-mongoose express-session)
+  */
 
   /*
   Tap into the User model and call the register method, this method comes from
@@ -188,13 +336,17 @@ app.post("/register", function(req, res) {
 passport.authenticate("local")
 
 Course code was allowing the user to enter the right username (email) and wrong password
-and go to the secrets page by typing in http://localhost:3000/secrets in the browser after getting the Unauthorized page message,
-now the addition of passport.authenticate("local")to the app.post... route fixes this issue
+and go to the secrets page by typing in http://localhost:3000/secrets in the browser after getting
+the Unauthorized page message, now the addition of passport.authenticate("local")to the
+app.post... route fixes this issue
 */
 
 app.post("/login", passport.authenticate("local"), function(req, res) {
 
-  //Now we will incorporate hashing and salting and authentication using passport.js and the packages just added (passport passport-local passport-local-mongoose express-session)
+  /*
+  Now we will incorporate hashing and salting and authentication using passport.js and the
+  packages just added (passport passport-local passport-local-mongoose express-session)
+  */
 
   //Create a new user from the mongoose model with its two properties (username, password)
   const user = new User({
@@ -217,5 +369,13 @@ app.post("/login", passport.authenticate("local"), function(req, res) {
 
 //Set up the server to listen to port 3000
 app.listen(3000, function() {
-  console.log("Server started on port 3000!!!");
+  console.log("\n");
+  console.log("###############################################################################");
+  console.log("###############################################################################");
+  console.log("###############################################################################");
+  console.log("                      SERVER STARTED ON PORT 3000!!!");
+  console.log("###############################################################################");
+  console.log("###############################################################################");
+  console.log("###############################################################################");
+  console.log("\n");
 });
