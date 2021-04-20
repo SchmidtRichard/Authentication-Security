@@ -482,7 +482,8 @@ app.post("/login", function(req, res) {
 
 Optimized `bcrypt` in JavaScript with zero `dependencies`. Compatible to the `C++ bcrypt` binding on `node.js` and also working in the browser.
 
-> :warning: [(node.bcrypt.js)](https://www.npmjs.com/package/bcrypt) installation did not work for Windows, so bcrypt.js was used instead
+> :warning: **WARNING**</br></br>
+> [(node.bcrypt.js)](https://www.npmjs.com/package/bcrypt) installation did not work for Windows, so bcrypt.js was used instead
 
 ## Salting
 
@@ -656,7 +657,8 @@ const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 ```
 
-> :warning: We don't need to require passport-local because it's one of those dependencies that will be needed by passport-local-mongoose
+> :warning: **WARNING**</br></br>
+> We don't need to require passport-local because it's one of those dependencies that will be needed by passport-local-mongoose
 
 ### Setup Express Session
 
@@ -691,11 +693,11 @@ userSchema.plugin(passportLocalMongoose);
 
 ### passport-local Configuration
 
-Create a strategy which is going to be the _local_ strategy to authenticate users' by using their username and password and also to `serialize` and `deserialize` the user.
+Create a strategy which is going to be the **local** strategy to authenticate users' by using their username and password and also to `serialize` and `deserialize` the user.
 
-_Serialize_ the user is to basically create the cookie and add inside the message - which is namely the users' identification - into the cookie.
+**Serialize** the user is to basically create the cookie and add inside the message - which is namely the users' identification - into the cookie.
 
-_Deserialize_ the user is to basically allow passport to be able to crumble the cookie and discover the message inside which is who the user is all of the users' identification so that we can _authenticate_ the user on the server.
+**Deserialize** the user is to basically allow passport to be able to crumble the cookie and discover the message inside which is who the user is all of the users' identification so that we can **authenticate** the user on the server.
 
 ```js
 passport.use(User.createStrategy());
@@ -709,7 +711,8 @@ passport.deserializeUser(User.deserializeUser());
 mongoose.set("useCreateIndex", true);
 ```
 
-> :warning:  After running nodemon app.js we may get the error below:</br>
+> :warning: **WARNING**</br></br>
+> After running nodemon app.js we may get the error below:</br>
 >      DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead
 
 ## GET Request to Secrets Route Code Example
@@ -811,8 +814,9 @@ Now we will incorporate `hashing`, `salting` and `authentication` using `passpor
 passport.authenticate("local")
 
 Course code was allowing the user to enter the right username (email) and wrong password
-and go to the secrets page by typing in http://localhost:3000/secrets in the browser after getting the Unauthorized
-page message, now the addition of passport.authenticate("local")to the app.post... route fixes this issue
+and go to the secrets page by typing in http://localhost:3000/secrets in the browser after getting
+the Unauthorized page message, now the addition of passport.authenticate("local")to the
+app.post... route fixes this issue
 */
 
 app.post("/login", passport.authenticate("local"), function(req, res) {
@@ -975,7 +979,7 @@ passport.use(new GoogleStrategy({
 ));
 ```
 
-> :warning:
+> :warning: **WARNING**</br></br>
 >      There is just one more thing we need to [add](https://github.com/jaredhanson/passport-google-oauth2#readme) to this configuration because Google is sunsetting the **Google+ API (deprecated)** and all things related to Google+, previously this package relied on [Google+](https://github.com/jaredhanson/passport-google-oauth2/issues/50#issuecomment-449188012) to obtain user information so they got the user's Google+ profile and we need to [fix the deprecation of the Google+ API](https://github.com/jaredhanson/passport-google-oauth2/pull/51) by adding `userProfileURL: 'https://www.googleapis.com/oauth2/v3/userinfo'` to the **strategy options ((use the oauth userinfo endpoint instead of G+)**.
 >     So now when we use `passport` to **authenticate** our users using **Google OAuth** we are no longer gonna be retrieving their profile information from their **Google+** account but instead we are going to retrieve it from their info which is simply another **endpoint** on Google.
 >     It is very likely that at some point if the **Google+ API** deprecates then the code might not work and we are probably going to get some warnings down the line in the console telling something like: **"Google+ API deprecated. Fix it by doing this..."**
@@ -1054,7 +1058,7 @@ Use `passport.authenticate()`, specifying the `'google'` strategy, to authentica
 
 For example, as route middleware in an **Express** application.
 
-> :warning:
+> :warning: **WARNING**</br></br>
 >      In order to fix the `Cannot GET /auth/google/secrets` error message we get after trying to login/register to the **Secrets** page using **Google**, we need to add this route to be able to authenticate them `locally` on our website and to save their **login session** using **sessions** and **cookies**.
 
 ```js
@@ -1069,9 +1073,9 @@ app.get('/auth/google/callback',
   });
 ```
 
-> :warning:
->      Error: Failed to serialize user into session
->      In order to fix the error above we need to replace our [serialize and deserialize](http://www.passportjs.org/docs/configure/) code to work for all **different strategies**, not just for the **local strategy**.
+> :warning: **WARNING**</br></br>
+>      Error: Failed to serialize user into session</br>
+>      In order to fix the error above we need to replace our [serialize and deserialize](http://www.passportjs.org/docs/configure/) code to work for all **different strategies**, not just for the **local strategy**.</br>
 
 ```js
 passport.serializeUser(function(user, done) {
