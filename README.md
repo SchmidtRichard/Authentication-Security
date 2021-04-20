@@ -47,13 +47,13 @@
         6.5 [GET Request to Logout Route Code Example](#get-request-to-logout-route-code-example)</br>
         6.6 [POST Request to Register Route Code Example](#post-request-to-register-route-code-example)</br>
         6.7 [POST Request to Login Route Code Example](#post-request-to-login-route-code-example)</br>
-7.  [Security Level 6 - OAuth2.0 (Open Authorisation) & How to Implement Sign In with Google](#https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#security-level-6---oauth20-open-authorisation--how-to-implement-sign-in-with-google)</br>
-    7.1 [Why OAuth?](#https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#why-oauth)</br>
-    7.1.1 [1. Granular Access Levels](#https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#1--granular-access-levels)</br>
-    7.1.2 [2. Read/Read+Write Access](#https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#2--readreadwrite-access)</br>
-    7.1.3. [3. Revoke Access](#https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#3--revoke-access)</br>
-    7.2 [OAuth Steps](#https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#oauth-steps)</br>
-    7.2.1 [First Step - Set Up The App](#https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#first-step---set-up-the-app)</br>
+7.  [Security Level 6 - OAuth2.0 (Open Authorisation) & How to Implement Sign In with Google](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#security-level-6---oauth20-open-authorisation--how-to-implement-sign-in-with-google)</br>
+    7.1 [Why OAuth?](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#why-oauth)</br>
+        7.1.1 [1. Granular Access Levels](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#1--granular-access-levels)</br>
+        7.1.2 [2. Read/Read+Write Access](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#2--readreadwrite-access)</br>
+        7.1.3. [3. Revoke Access](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#3--revoke-access)</br>
+    7.2 [OAuth Steps](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#oauth-steps)</br>
+        7.2.1 [First Step - Set Up The App](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#first-step---set-up-the-app)</br>
 
 * * *
 
