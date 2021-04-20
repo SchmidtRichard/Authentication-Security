@@ -121,7 +121,6 @@ app.get("/secrets", function(req, res) {
   you can go back by pressing the back button on the browser, the code to fix it is the one below so the page will not be cached
   */
 
-
   res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stal   e=0, post-check=0, pre-check=0');
 
   /*
