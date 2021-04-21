@@ -64,11 +64,15 @@ mongoose.set("useCreateIndex", true);
 The userSchema is no longer a simple javascript object,
 it is now an object created from the mongoose.Schema class
 */
+
+
+//Code updated, now the secrets are saved into an array (secret)
+
 const userSchema = new mongoose.Schema({
   email: String,
   password: String,
   googleId: String,
-  secret: String
+  secret: Array
 });
 
 /*
@@ -267,49 +271,26 @@ app.get("/secrets", function(req, res) {
   and use find and look through the collection users and find all
   ({$ne: null})the places where the secret field actually has a value stored
   */
+
+  //Code updated, now the secrets are saved into an array (secret)
   User.find({
-    "secret": {
+    secret: {
       $ne: null
     }
-  }, function(err, foundUsers) {
-    if (err) {
-      console.log(err);
-    } else {
-      if (foundUsers) {
+  }, function(err, users) {
+    if (!err) {
+      if (users) {
         res.render("secrets", {
-          usersWithSecrets: foundUsers
+          usersWithSecrets: users
         });
+      } else {
+        console.log(err);
       }
+    } else {
+      console.log(err);
     }
   });
-
-
-
-
-  /*
-  Course code was allowing the user to go back to the secrets page after loggin out,
-  that is because when we access a page, it is cached by the browser, so when the user is accessing
-  a cached page (like the secrets one) you can go back by pressing the back button on the browser,
-  the code to fix it is the one below so the page will not be cached
-  */
-
-  //res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stal   e=0, post-check=0, pre-check=0');
-
-  /*
-  Check if the user is authenticated and this is where we are relying on
-  passport.js, session, passport-local and passport-local-mongoose to make sure
-  that if the user is already logged in then we should simply render the secrets page
-  but if the user is not logged in then we are going to redirect the user to the login page
-  */
-  //   if (req.isAuthenticated()) {
-  //     res.render("secrets");
-  //   } else {
-  //     res.render("login");
-  //   }
 });
-
-
-
 
 //Target the submit route
 app.get("/submit", function(req, res) {
@@ -321,8 +302,6 @@ app.get("/submit", function(req, res) {
   }
 });
 
-
-
 //Target the logout route
 app.get("/logout", function(req, res) {
   //deauthenticate the user and end the user session
@@ -331,12 +310,8 @@ app.get("/logout", function(req, res) {
   res.redirect("/");
 });
 
-
-
 //POST request (submit route) to submit a secret
 app.post("/submit", function(req, res) {
-  //Save the secret the user typed in the form
-  const submittedSecret = req.body.secret;
 
   /*
   Find the current user in the DB and save the secret into their file
@@ -345,33 +320,27 @@ app.post("/submit", function(req, res) {
   test it by console.log(req.user); to output the current logged in
   user (id and username) into the terminal
   */
+
+  //Code updated, now the secrets are saved into an array (secret)
+  if (req.isAuthenticated()) {
+    //Add the secret the user submitted to the secret field created in the schema
+    User.findById(req.user.id, function(err, user) {
+      user.secret.push(req.body.secret);
+      //Save the user with their newly updated secret
+      user.save(function() {
+        res.redirect("/secrets");
+      });
+    });
+
+  } else {
+    res.redirect("/login");
+  }
+  console.log(emoji.get("blush"));
+  console.log("\n");
   console.log(req.user);
-
-  //Add the secret the user submitted to the secret field created in the schema
-  User.findById(req.user.id, function(err, foundUser) {
-    if (err) {
-      console.log(err);
-    } else {
-
-      if (foundUser) {
-        /*
-        If the (foundUser) user exists then we are going to set the foundUser's secret
-        field to equals the submittedSecret (variable value)
-        */
-        foundUser.secret = submittedSecret;
-        /*
-        Save the foundUser with their newly updated secret
-        */
-        foundUser.save(function() {
-          res.redirect("/secrets");
-        });
-      }
-    }
-  });
+  console.log("\n");
+  console.log(emoji.get("blush"));
 });
-
-
-
 
 //POST request (register route) to post the username and password the user enter when registering
 app.post("/register", function(req, res) {
@@ -415,7 +384,6 @@ app.post("/register", function(req, res) {
 });
 
 //POST request (login route) to login the user
-
 /*
 passport.authenticate("local")
 
@@ -424,7 +392,6 @@ and go to the secrets page by typing in http://localhost:3000/secrets in the bro
 the Unauthorized page message, now the addition of passport.authenticate("local")to the
 app.post... route fixes this issue
 */
-
 app.post("/login", passport.authenticate("local"), function(req, res) {
 
   /*
@@ -460,11 +427,11 @@ app.listen(3000, function() {
   console.log("###############################################################################");
   console.log("###############################################################################");
   console.log("\n");
-  console.log(emoji.get("bamboo"), " ", emoji.get("hamburger"), " ", emoji.get("meat_on_bone"), " ", emoji.get("poultry_leg"), " ", emoji.get("rice_cracker"), " ", emoji.get("tomato"), " ", emoji.get("rice"), " ", emoji.get("cupid"), " ", emoji.get("panda_face"), " ", emoji.get("bearded_person"), " ", emoji.get("cupid"), " ", emoji.get("taco"), " ", emoji.get("pizza"), " ", emoji.get("hotdog"), " ", emoji.get("beers"), " ", emoji.get("popcorn"), " ", emoji.get("fries"), " ", emoji.get("cookie"), " ", emoji.get("ice_cream"), " ", emoji.get("strawberry"), " ", );
+  console.log(emoji.get("bamboo"), " ", emoji.get("hamburger"), " ", emoji.get("meat_on_bone"), " ", emoji.get("poultry_leg"), " ", emoji.get("rice_cracker"), " ", emoji.get("tomato"), " ", emoji.get("rice"), " ", emoji.get("cupid"), " ", emoji.get("panda_face"), " ", emoji.get("bearded_person"), " ", emoji.get("cupid"), " ", emoji.get("taco"), " ", emoji.get("pizza"), " ", emoji.get("hotdog"), " ", emoji.get("beers"), " ", emoji.get("popcorn"), " ", emoji.get("fries"), " ", emoji.get("cookie"), " ", emoji.get("ice_cream"), " ", emoji.get("strawberry"));
   console.log("\n");
   console.log(emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), "  SERVER STARTED ON PORT 3000!!! ", emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"));
   console.log("\n");
-  console.log(emoji.get("bamboo"), " ", emoji.get("hamburger"), " ", emoji.get("meat_on_bone"), " ", emoji.get("poultry_leg"), " ", emoji.get("rice_cracker"), " ", emoji.get("tomato"), " ", emoji.get("rice"), " ", emoji.get("cupid"), " ", emoji.get("panda_face"), " ", emoji.get("bearded_person"), " ", emoji.get("cupid"), " ", emoji.get("taco"), " ", emoji.get("pizza"), " ", emoji.get("hotdog"), " ", emoji.get("beers"), " ", emoji.get("popcorn"), " ", emoji.get("fries"), " ", emoji.get("cookie"), " ", emoji.get("ice_cream"), " ", emoji.get("strawberry"), " ", );
+  console.log(emoji.get("bamboo"), " ", emoji.get("hamburger"), " ", emoji.get("meat_on_bone"), " ", emoji.get("poultry_leg"), " ", emoji.get("rice_cracker"), " ", emoji.get("tomato"), " ", emoji.get("rice"), " ", emoji.get("cupid"), " ", emoji.get("panda_face"), " ", emoji.get("bearded_person"), " ", emoji.get("cupid"), " ", emoji.get("taco"), " ", emoji.get("pizza"), " ", emoji.get("hotdog"), " ", emoji.get("beers"), " ", emoji.get("popcorn"), " ", emoji.get("fries"), " ", emoji.get("cookie"), " ", emoji.get("ice_cream"), " ", emoji.get("strawberry"));
   console.log("\n");
   console.log("###############################################################################");
   console.log("###############################################################################");

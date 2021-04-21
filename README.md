@@ -8,19 +8,19 @@
       2.1.1. [POST Request to Register Route Code Example](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#post-request-to-register-route-code-example)</br>
       2.1.2. [POST Request to Login Route Code Example](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#post-request-to-login-route-code-example)</br>
 3.  [Security Level 2 - mongoose-encryption](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#security-level-2---mongoose-encryption)</br>
-    3.1 [How it Works](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#how-it-works)</br>
-    3.2 [Installation](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#installation-1)</br>
-    3.3 [Usage](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#usage)</br>
-          3.1.1 [Basic](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#basic)</br>
-          3.1.2 [Encrypt Only Certain Fields](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#encrypt-only-certain-fields)</br>
-          3.1.3 [Secret String Instead of Two Keys](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#secret-string-instead-of-two-keys)</br>
-    3.4 [Mongoose Encryption Code Example](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#mongoose-encryption-code-example)</br>
-    3.5 [Environment Variables to Keep Secrets Safe](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#environment-variables-to-keep-secrets-safe)</br>
-          3.5.1 [dotenv](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#dotenv)</br>
-          3.5.2 [Installation](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#installation-2)</br>
-          3.5.3 [Usage](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#usage-1)</br>
-          3.5.4 [Environment Variables to Keep Secrets Safe Code Example](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#environment-variables-to-keep-secrets-safe-code-example)</br>
-         3.5.5 [.gitignore](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#gitignore)</br>
+      3.1 [How it Works](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#how-it-works)</br>
+      3.2 [Installation](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#installation-1)</br>
+      3.3 [Usage](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#usage)</br>
+            3.1.1 [Basic](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#basic)</br>
+            3.1.2 [Encrypt Only Certain Fields](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#encrypt-only-certain-fields)</br>
+            3.1.3 [Secret String Instead of Two Keys](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#secret-string-instead-of-two-keys)</br>
+      3.4 [Mongoose Encryption Code Example](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#mongoose-encryption-code-example)</br>
+      3.5 [Environment Variables to Keep Secrets Safe](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#environment-variables-to-keep-secrets-safe)</br>
+            3.5.1 [dotenv](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#dotenv)</br>
+            3.5.2 [Installation](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#installation-2)</br>
+            3.5.3 [Usage](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#usage-1)</br>
+            3.5.4 [Environment Variables to Keep Secrets Safe Code Example](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#environment-variables-to-keep-secrets-safe-code-example)</br>
+            3.5.5 [.gitignore](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#gitignore)</br>
 4.  [Security Level 3 - Hash](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#security-level-3---hash)</br>
     4.1 [MD5](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#md5)</br>
     4.2 [Installation](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#installation-3)</br>
