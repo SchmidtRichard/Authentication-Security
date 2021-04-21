@@ -1,52 +1,52 @@
 # Table of Contents
 
-1.  [Express](#express)</br>
-    1.1 [Installation](#installation)</br>
-    1.2 [Other Packages Installation](#other-packages-installation)</br>
-2.  [Security Level 1 - The Lowest Level](#security-level-1---the-lowest-level)</br>
-    2.1. [HTTP POST Request/POST Route Code Example](#http-post-requestpost-route-code-example)</br>
-      2.1.1. [POST Request to Register Route Code Example](#post-request-to-register-route-code-example)</br>
-      2.1.2. [POST Request to Login Route Code Example](#post-request-to-login-route-code-example)</br>
-3.  [Security Level 2 - mongoose-encryption](#security-level-2---mongoose---encryption)</br>
-    3.1 [How it Works](#how-it-works)</br>
-    3.2 [Installation](#installation)</br>
-    3.3 [Usage](#usage)</br>
-          3.1.1 [Basic](#basic)</br>
-          3.1.2 [Encrypt Only Certain Fields](#encrypt-only-certain-fields)</br>
-          3.1.3 [Secret String Instead of Two Keys](#secret-string-instead-of-two-keys)</br>
-    3.4 [Mongoose Encryption Code Example](#mongoose-encryption-code-example)</br>
-    3.5 [Environment Variables to Keep Secrets Safe](#environment-variables-to-keep-secrets-safe)</br>
-          3.5.1 [dotenv](#dotenv)</br>
-          3.5.2 [Installation](#installation)</br>
-          3.5.3 [Usage](#usage)</br>
-          3.5.4 [Environment Variables to Keep Secrets Safe Code Example](#environment-variables-to-keep-secrets-safe-code-example)</br>
-        3.6 [.gitignore](#gitignore)</br>
-4.  [Security Level 3 - Hash](#security-level-3---hash)</br>
-    4.1 [MD5](#md5)</br>
-    4.2 [Installation](#installation)</br>
-    4.3 [Usage](#usage)</br>
-    4.4 [Hash Function (MD5) Code Example](#hash-function-md5-code-example)</br>
-5.  [Security Level 4 - Salting and Hashing Passwords with bcryptjs](#security-level-4---salting-and-hashing-passwords-with-bcryptjs)</br>
-    5.1 [bcryptjs Hashing Algorithm (replaces MD5)](#bcryptjs-hashing-algorithm-replaces-md5)</br>
-    5.2 [Salting](#salting)</br>
-          5.2.1 [Salt Rounds](#salt-rounds)</br>
-    5.3 [Installation](#installation)</br>
-    5.4 [Usage](#usage)</br>
-    5.5 [Basic](#basic)</br>
-    5.6 [bcryptjs and Salting Code Example](#bcryptjs-and-salting-code-example)</br>
-6.  [Security Level 5 - Cookies and Sessions](#security-level-5---cookies-and-sessions)</br>
-        6.1 [Implementation with Passport.js](#implementation-with-passportjs)</br>
-        6.2 [Passport.js and Other Packages Installation](#passportjs-and-other-packages-installation)</br>
-        6.3 [express-session and Usage](#express---session-and-usage)</br>
-              6.3.1 [Setup Express Session](#setup-express-session)</br>
-              6.3.2 [Initialize and Start Using passport.js](#initialize-and-start-using-passportjs)</br>
-              6.3.3 [Setup passport-local-mongoose](#setup-passport---local---mongoose)</br>
-              6.3.4 [passport-local Configuration](#passport---local-configuration)</br>
-              6.3.5 [Fixing Deprecation Warning](#fixing-deprecation-warning)</br>
-        6.4 [GET Request to Secrets Route Code Example](#get-request-to-secrets-route-code-example)</br>
-        6.5 [GET Request to Logout Route Code Example](#get-request-to-logout-route-code-example)</br>
-        6.6 [POST Request to Register Route Code Example](#post-request-to-register-route-code-example)</br>
-        6.7 [POST Request to Login Route Code Example](#post-request-to-login-route-code-example)</br>
+1.  [Express](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#express)</br>
+    1.1 [Installation](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#installation)</br>
+    1.2 [Other Packages Installation](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#other-packages-installation)</br>
+2.  [Security Level 1 - The Lowest Level](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#security-level-1---the-lowest-level)</br>
+    2.1. [HTTP POST Request/POST Route Code Example](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#http-post-requestpost-route-code-example)</br>
+      2.1.1. [POST Request to Register Route Code Example](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#post-request-to-register-route-code-example)</br>
+      2.1.2. [POST Request to Login Route Code Example](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#post-request-to-login-route-code-example)</br>
+3.  [Security Level 2 - mongoose-encryption](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#security-level-2---mongoose-encryption)</br>
+    3.1 [How it Works](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#how-it-works)</br>
+    3.2 [Installation](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#installation-1)</br>
+    3.3 [Usage](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#usage)</br>
+          3.1.1 [Basic](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#basic)</br>
+          3.1.2 [Encrypt Only Certain Fields](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#encrypt-only-certain-fields)</br>
+          3.1.3 [Secret String Instead of Two Keys](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#secret-string-instead-of-two-keys)</br>
+    3.4 [Mongoose Encryption Code Example](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#mongoose-encryption-code-example)</br>
+    3.5 [Environment Variables to Keep Secrets Safe](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#environment-variables-to-keep-secrets-safe)</br>
+          3.5.1 [dotenv](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#dotenv)</br>
+          3.5.2 [Installation](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#installation-2)</br>
+          3.5.3 [Usage](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#usage-1)</br>
+          3.5.4 [Environment Variables to Keep Secrets Safe Code Example](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#environment-variables-to-keep-secrets-safe-code-example)</br>
+        3.6 [.gitignore](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#gitignore)</br>
+4.  [Security Level 3 - Hash](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#security-level-3---hash)</br>
+    4.1 [MD5](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#md5)</br>
+    4.2 [Installation](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#installation-3)</br>
+    4.3 [Usage](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#usage-2)</br>
+    4.4 [Hash Function (MD5) Code Example](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#hash-function-md5-code-example)</br>
+5.  [Security Level 4 - Salting and Hashing Passwords with bcryptjs](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#security-level-4---salting-and-hashing-passwords-with-bcryptjs)</br>
+    5.1 [bcryptjs Hashing Algorithm (replaces MD5)](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#bcryptjs-hashing-algorithm-replaces-md5)</br>
+    5.2 [Salting](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#salting)</br>
+          5.2.1 [Salt Rounds](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#salt-rounds)</br>
+    5.3 [Installation](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#installation-4)</br>
+    5.4 [Usage](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#usage-3)</br>
+    5.5 [Basic](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#basic-1)</br>
+    5.6 [bcryptjs and Salting Code Example](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#bcryptjs-and-salting-code-example)</br>
+6.  [Security Level 5 - Cookies and Sessions](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#security-level-5---cookies-and-sessions)</br>
+        6.1 [Implementation with Passport.js](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#implementation-with-passportjs)</br>
+        6.2 [Passport.js and Other Packages Installation](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#passportjs-and-other-packages-installation)</br>
+        6.3 [express-session and Usage](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#express-session-and-passport-local-mongoose-usage)</br>
+              6.3.1 [Setup Express Session](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#setup-express-session)</br>
+              6.3.2 [Initialize and Start Using passport.js](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#initialize-and-start-using-passportjs)</br>
+              6.3.3 [Setup passport-local-mongoose](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#setup-passport-local-mongoose)</br>
+              6.3.4 [passport-local Configuration](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#passport-local-configuration)</br>
+              6.3.5 [Fixing Deprecation Warning](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#fixing-deprecation-warning)</br>
+        6.4 [GET Request to Secrets Route Code Example](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#get-request-to-secrets-route-code-example)</br>
+        6.5 [GET Request to Logout Route Code Example](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#get-request-to-logout-route-code-example)</br>
+        6.6 [POST Request to Register Route Code Example](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#post-request-to-register-route-code-example-1)</br>
+        6.7 [POST Request to Login Route Code Example](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#post-request-to-login-route-code-example-1)</br>
 7.  [Security Level 6 - OAuth2.0 (Open Authorisation) & How to Implement Sign In with Google](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#security-level-6---oauth20-open-authorisation--how-to-implement-sign-in-with-google)</br>
       7.1 [Why OAuth?](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#why-oauth)</br>
               7.1.1 [1. Granular Access Levels](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#1--granular-access-levels)</br>
@@ -58,19 +58,29 @@
               7.2.3 [Third Step - User Logs In](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#third-step---user-logs-in)</br>
               7.2.4 [Fourth Step - User Grants Permissions](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#fourth-step---user-grants-permissions)</br>
               7.2.5 [Fifth Step - Receive Authorisation Code](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#fifth-step---receive-authorisation-code)</br>
-          7.2.6 [Sixth Step - Exchange AuthCode for Access Token](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#sixth-step---exchange-authcode-for-access-token)</br>
+              7.2.6 [Sixth Step - Exchange AuthCode for Access Token](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#sixth-step---exchange-authcode-for-access-token)</br>
       7.3 [Passport Strategy for Authenticating with Google Using the OAuth 2.0 API](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#passport-strategy-for-authenticating-with-google-using-the-oauth-20-api)</br>
               7.3.1 [passport-google-oauth20 Installation](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#passport-google-oauth20-installation)</br>
               7.3.2 [passport-google-oauth20 Usage](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#passport-google-oauth20-usage)</br>
                   7.3.2.1 [passport-google-oauth20 Create an Application](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#passport-google-oauth20-create-an-application)</br>
-                  7.3.2.2.1 [Inside Google Console](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#inside-google-console)</br>
+                      7.3.2.2.1 [Inside Google Console](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#inside-google-console)</br>
                   7.3.2.3 [passport-google-oauth20 Configure Strategy](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#passport-google-oauth20-configure-strategy)</br>
                   7.3.2.4 [passport-google-oauth20 Configure Strategy Code Example](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#passport-google-oauth20-configure-strategy-code-example)</br>
-                  7.3.2.5.1 [mongoose-findorcreate Installation](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#mongoose-findorcreate-installation)</br>
-                  7.3.2.5.2 [mongoose-findorcreate Usage](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#mongoose-findorcreate-usage)</br>
-              7.3.2.5.3 [Now the last step is to add it as a plugin to our schema](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#now-the-last-step-is-to-add-it-as-a-plugin-to-our-schema)</br>
+                      7.3.2.5.1 [mongoose-findorcreate Installation](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#mongoose-findorcreate-installation)</br>
+                      7.3.2.5.2 [mongoose-findorcreate Usage](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#mongoose-findorcreate-usage)</br>
+                      7.3.2.5.3 [Now the last step is to add it as a plugin to our schema](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#now-the-last-step-is-to-add-it-as-a-plugin-to-our-schema)</br>
                   7.3.2.6 [passport-google-oauth20 Authenticate Requests](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#passport-google-oauth20-authenticate-requests)</br>
                   7.3.2.7 [passport-google-oauth20 Authenticate Requests Code Example](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#passport-google-oauth20-authenticate-requests-code-example)</br>
+8.  [Letting Users Submit Secrets](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#letting-users-submit-secrets)</br>
+    8.1 [secrets.ejs](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#secretsejs)</br>
+    8.2 [Secrets GET Route](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#secrets-get-route)</br>
+    8.3 [Create Submit GET Route](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#create-submit-get-route)</br>
+    8.4 [Create Submit POST Route](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#create-submit-post-route)</br>
+    8.5 [Amend mongoose userSchema](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#amend-mongoose-userschema)</br>
+9.  [node-emoji](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#node-emoji)</br>
+    9.1 [node-emoji Installation](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#node-emoji-installation)</br>
+    9.2 [node-emoji Usage](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#node-emoji-usage)</br>
+    9.3 [JSON File With All the Emojis](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#json-file-with-all-the-emojis)</br>
 
 * * *
 
@@ -1169,7 +1179,7 @@ user.secret field inside a paragraph element
 <% }) %>
 ```
 
-## Secrets GET Route
+## Amend Secrets GET Route
 
 ```js
 //Target the secrets route to render the secrets page

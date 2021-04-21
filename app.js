@@ -460,7 +460,11 @@ app.listen(3000, function() {
   console.log("###############################################################################");
   console.log("###############################################################################");
   console.log("\n");
+  console.log(emoji.get("bamboo"), " ", emoji.get("hamburger"), " ", emoji.get("meat_on_bone"), " ", emoji.get("poultry_leg"), " ", emoji.get("rice_cracker"), " ", emoji.get("tomato"), " ", emoji.get("rice"), " ", emoji.get("cupid"), " ", emoji.get("panda_face"), " ", emoji.get("bearded_person"), " ", emoji.get("cupid"), " ", emoji.get("taco"), " ", emoji.get("pizza"), " ", emoji.get("hotdog"), " ", emoji.get("beers"), " ", emoji.get("popcorn"), " ", emoji.get("fries"), " ", emoji.get("cookie"), " ", emoji.get("ice_cream"), " ", emoji.get("strawberry"), " ", );
+  console.log("\n");
   console.log(emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), "  SERVER STARTED ON PORT 3000!!! ", emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"), emoji.get("rocket"));
+  console.log("\n");
+  console.log(emoji.get("bamboo"), " ", emoji.get("hamburger"), " ", emoji.get("meat_on_bone"), " ", emoji.get("poultry_leg"), " ", emoji.get("rice_cracker"), " ", emoji.get("tomato"), " ", emoji.get("rice"), " ", emoji.get("cupid"), " ", emoji.get("panda_face"), " ", emoji.get("bearded_person"), " ", emoji.get("cupid"), " ", emoji.get("taco"), " ", emoji.get("pizza"), " ", emoji.get("hotdog"), " ", emoji.get("beers"), " ", emoji.get("popcorn"), " ", emoji.get("fries"), " ", emoji.get("cookie"), " ", emoji.get("ice_cream"), " ", emoji.get("strawberry"), " ", );
   console.log("\n");
   console.log("###############################################################################");
   console.log("###############################################################################");
