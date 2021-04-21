@@ -49,28 +49,28 @@
         6.7 [POST Request to Login Route Code Example](#post-request-to-login-route-code-example)</br>
 7.  [Security Level 6 - OAuth2.0 (Open Authorisation) & How to Implement Sign In with Google](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#security-level-6---oauth20-open-authorisation--how-to-implement-sign-in-with-google)</br>
       7.1 [Why OAuth?](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#why-oauth)</br>
-          7.1.1 [1. Granular Access Levels](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#1--granular-access-levels)</br>
-          7.1.2 [2. Read/Read+Write Access](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#2--readreadwrite-access)</br>
-          7.1.3. [3. Revoke Access](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#3--revoke-access)</br>
+              7.1.1 [1. Granular Access Levels](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#1--granular-access-levels)</br>
+              7.1.2 [2. Read/Read+Write Access](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#2--readreadwrite-access)</br>
+              7.1.3. [3. Revoke Access](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#3--revoke-access)</br>
       7.2 [OAuth Steps](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#oauth-steps)</br>
-          7.2.1 [First Step - Set Up The App](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#first-step---set-up-the-app)</br>
-          7.2.2 [Second Step - Redirect to Authenticate](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#second-step---redirect-to-authenticate)</br>
-          7.2.3 [Third Step - User Logs In](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#third-step---user-logs-in)</br>
-          7.2.4 [Fourth Step - User Grants Permissions](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#fourth-step---user-grants-permissions)</br>
-          7.2.5 [Fifth Step - Receive Authorisation Code](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#fifth-step---receive-authorisation-code)</br>
+              7.2.1 [First Step - Set Up The App](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#first-step---set-up-the-app)</br>
+              7.2.2 [Second Step - Redirect to Authenticate](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#second-step---redirect-to-authenticate)</br>
+              7.2.3 [Third Step - User Logs In](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#third-step---user-logs-in)</br>
+              7.2.4 [Fourth Step - User Grants Permissions](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#fourth-step---user-grants-permissions)</br>
+              7.2.5 [Fifth Step - Receive Authorisation Code](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#fifth-step---receive-authorisation-code)</br>
           7.2.6 [Sixth Step - Exchange AuthCode for Access Token](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#sixth-step---exchange-authcode-for-access-token)</br>
       7.3 [Passport Strategy for Authenticating with Google Using the OAuth 2.0 API](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#passport-strategy-for-authenticating-with-google-using-the-oauth-20-api)</br>
-          7.3.1 [passport-google-oauth20 Installation](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#passport-google-oauth20-installation)</br>
-          7.3.2 [passport-google-oauth20 Usage](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#passport-google-oauth20-usage)</br>
-          7.3.2.1 [passport-google-oauth20 Create an Application](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#passport-google-oauth20-create-an-application)</br>
-          7.3.2.2.1 [Inside Google Console](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#inside-google-console)</br>
-          7.3.2.3 [passport-google-oauth20 Configure Strategy](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#passport-google-oauth20-configure-strategy)</br>
-          7.3.2.4 [passport-google-oauth20 Configure Strategy Code Example](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#passport-google-oauth20-configure-strategy-code-example)</br>
-          7.3.2.5.1 [mongoose-findorcreate Installation](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#mongoose-findorcreate-installation)</br>
-          7.3.2.5.2 [mongoose-findorcreate Usage](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#mongoose-findorcreate-usage)</br>
-          7.3.2.5.3 [Now the last step is to add it as a plugin to our schema](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#now-the-last-step-is-to-add-it-as-a-plugin-to-our-schema)</br>
-          7.3.2.6 [passport-google-oauth20 Authenticate Requests](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#passport-google-oauth20-authenticate-requests)</br>
-          7.3.2.7 [passport-google-oauth20 Authenticate Requests Code Example](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#passport-google-oauth20-authenticate-requests-code-example)</br>
+              7.3.1 [passport-google-oauth20 Installation](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#passport-google-oauth20-installation)</br>
+              7.3.2 [passport-google-oauth20 Usage](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#passport-google-oauth20-usage)</br>
+                  7.3.2.1 [passport-google-oauth20 Create an Application](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#passport-google-oauth20-create-an-application)</br>
+                  7.3.2.2.1 [Inside Google Console](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#inside-google-console)</br>
+                  7.3.2.3 [passport-google-oauth20 Configure Strategy](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#passport-google-oauth20-configure-strategy)</br>
+                  7.3.2.4 [passport-google-oauth20 Configure Strategy Code Example](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#passport-google-oauth20-configure-strategy-code-example)</br>
+                  7.3.2.5.1 [mongoose-findorcreate Installation](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#mongoose-findorcreate-installation)</br>
+                  7.3.2.5.2 [mongoose-findorcreate Usage](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#mongoose-findorcreate-usage)</br>
+              7.3.2.5.3 [Now the last step is to add it as a plugin to our schema](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#now-the-last-step-is-to-add-it-as-a-plugin-to-our-schema)</br>
+                  7.3.2.6 [passport-google-oauth20 Authenticate Requests](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#passport-google-oauth20-authenticate-requests)</br>
+                  7.3.2.7 [passport-google-oauth20 Authenticate Requests Code Example](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#passport-google-oauth20-authenticate-requests-code-example)</br>
 
 * * *
 
@@ -1150,10 +1150,146 @@ Because we are authenticating the users using their Google we only get what is e
 
 * * *
 
-# node-emoji
+# Letting Users Submit Secrets
 
-<https://www.npmjs.com/package/node-emoji>
+## secrets.ejs
 
-<https://github.com/omnidan/node-emoji#readme>
+```html
+<!--
+add the secrets we get from our DB from the code in the
+app.get("/secrets"...) code (usersWithSecrets)
 
-<https://raw.githubusercontent.com/omnidan/node-emoji/master/lib/emoji.json>
+loop through the userWithSecrets variable/array, and the callback
+function will pick up all of the users inside the usersWithSecrets array
+and for each of these users we are going to render the value of the
+user.secret field inside a paragraph element
+-->
+<% usersWithSecrets.forEach(function(user){ %>
+      <p class="secret-text"><%= user.secret %></p>
+<% }) %>
+```
+
+## Secrets GET Route
+
+```js
+//Target the secrets route to render the secrets page
+app.get("/secrets", function(req, res) {
+
+  /*
+  secrets will no longer be a privileged page, anybody logged in or
+  not logged in will now be able to see the secrets that have been
+  submitted anonymously by the users of the page, so we are only going
+  to trawl through mongoDB and find all the secrets that have been
+  submitted on the mongoDB, we are going to use our model of Users (User)
+  and use find and look through the collection users and find all
+  ({$ne: null})the places where the secret field actually has a value stored
+  */
+  User.find({
+    "secret": {
+      $ne: null
+    }
+  }, function(err, foundUsers) {
+    if (err) {
+      console.log(err);
+    } else {
+      if (foundUsers) {
+        res.render("secrets", {
+          usersWithSecrets: foundUsers
+        });
+      }
+    }
+  });
+});
+```
+
+## Create Submit GET Route
+
+```js
+//Target the submit route
+app.get("/submit", function(req, res) {
+  //Check to see if the user is logged in, then render the submit page
+  if (req.isAuthenticated()) {
+    res.render("submit");
+  } else {
+    res.redirect("/login");
+  }
+});
+```
+
+## Create Submit POST Route
+
+```js
+//POST request (submit route) to submit a secret
+app.post("/submit", function(req, res) {
+  //Save the secret the user typed in the form
+  const submittedSecret = req.body.secret;
+
+  /*
+  Find the current user in the DB and save the secret into their file
+  Passport saves the users details because when we initiate a new login session
+  it will save that user's details into the request (req) variable
+  test it by console.log(req.user); to output the current logged in
+  user (id and username) into the terminal
+  */
+  console.log(req.user);
+
+  //Add the secret the user submitted to the secret field created in the schema
+  User.findById(req.user.id, function(err, foundUser) {
+    if (err) {
+      console.log(err);
+    } else {
+
+      if (foundUser) {
+        /*
+        If the (foundUser) user exists then we are going to set the foundUser's secret
+        field to equals the submittedSecret (variable value)
+        */
+        foundUser.secret = submittedSecret;
+        /*
+        Save the foundUser with their newly updated secret
+        */
+        foundUser.save(function() {
+          res.redirect("/secrets");
+        });
+      }
+    }
+  });
+});
+```
+
+## Amend mongoose userSchema
+
+```js
+const userSchema = new mongoose.Schema({
+  email: String,
+  password: String,
+  googleId: String,
+  secret: String
+});
+```
+
+* * *
+
+# [node-emoji](https://www.npmjs.com/package/node-emoji)
+
+simple emoji support for `node.js` projects
+
+## node-emoji [Installation](https://github.com/omnidan/node-emoji#readme)
+
+To install `node-emoji`, you need `node.js` and `npm`.
+
+Once you have that set-up, just run the command below in your project directory.
+
+```js
+npm install --save node-emoji
+```
+
+## node-emoji Usage
+
+```js
+var emoji = require('node-emoji')
+```
+
+## JSON File With All the Emojis
+
+You can get a JSON file with all emoji [here](https://raw.githubusercontent.com/omnidan/node-emoji/master/lib/emoji.json).

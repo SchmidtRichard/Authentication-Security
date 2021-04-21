@@ -67,7 +67,8 @@ it is now an object created from the mongoose.Schema class
 const userSchema = new mongoose.Schema({
   email: String,
   password: String,
-  googleId: String
+  googleId: String,
+  secret: String
 });
 
 /*
@@ -194,9 +195,6 @@ app.get("/", function(req, res) {
   res.render("home");
 });
 
-
-
-
 /*
 GET request for the button the user clicks when trying to
 login/register with Google (login.ejs - register.ejs)
@@ -247,9 +245,6 @@ app.get("/auth/google/secrets",
     res.redirect("/secrets");
   });
 
-
-
-
 //Target the login route to render the login page
 app.get("/login", function(req, res) {
   res.render("login");
@@ -264,13 +259,41 @@ app.get("/register", function(req, res) {
 app.get("/secrets", function(req, res) {
 
   /*
+  secrets will no longer be a privileged page, anybody logged in or
+  not logged in will now be able to see the secrets that have been
+  submitted anonymously by the users of the page, so we are only going
+  to trawl through mongoDB and find all the secrets that have been
+  submitted on the mongoDB, we are going to use our model of Users (User)
+  and use find and look through the collection users and find all
+  ({$ne: null})the places where the secret field actually has a value stored
+  */
+  User.find({
+    "secret": {
+      $ne: null
+    }
+  }, function(err, foundUsers) {
+    if (err) {
+      console.log(err);
+    } else {
+      if (foundUsers) {
+        res.render("secrets", {
+          usersWithSecrets: foundUsers
+        });
+      }
+    }
+  });
+
+
+
+
+  /*
   Course code was allowing the user to go back to the secrets page after loggin out,
   that is because when we access a page, it is cached by the browser, so when the user is accessing
   a cached page (like the secrets one) you can go back by pressing the back button on the browser,
   the code to fix it is the one below so the page will not be cached
   */
 
-  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stal   e=0, post-check=0, pre-check=0');
+  //res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stal   e=0, post-check=0, pre-check=0');
 
   /*
   Check if the user is authenticated and this is where we are relying on
@@ -278,12 +301,27 @@ app.get("/secrets", function(req, res) {
   that if the user is already logged in then we should simply render the secrets page
   but if the user is not logged in then we are going to redirect the user to the login page
   */
+  //   if (req.isAuthenticated()) {
+  //     res.render("secrets");
+  //   } else {
+  //     res.render("login");
+  //   }
+});
+
+
+
+
+//Target the submit route
+app.get("/submit", function(req, res) {
+  //Check to see if the user is logged in, then render the submit page
   if (req.isAuthenticated()) {
-    res.render("secrets");
+    res.render("submit");
   } else {
-    res.render("login");
+    res.redirect("/login");
   }
 });
+
+
 
 //Target the logout route
 app.get("/logout", function(req, res) {
@@ -292,6 +330,48 @@ app.get("/logout", function(req, res) {
   //redirect the user to the root route (home page)
   res.redirect("/");
 });
+
+
+
+//POST request (submit route) to submit a secret
+app.post("/submit", function(req, res) {
+  //Save the secret the user typed in the form
+  const submittedSecret = req.body.secret;
+
+  /*
+  Find the current user in the DB and save the secret into their file
+  Passport saves the users details because when we initiate a new login session
+  it will save that user's details into the request (req) variable
+  test it by console.log(req.user); to output the current logged in
+  user (id and username) into the terminal
+  */
+  console.log(req.user);
+
+  //Add the secret the user submitted to the secret field created in the schema
+  User.findById(req.user.id, function(err, foundUser) {
+    if (err) {
+      console.log(err);
+    } else {
+
+      if (foundUser) {
+        /*
+        If the (foundUser) user exists then we are going to set the foundUser's secret
+        field to equals the submittedSecret (variable value)
+        */
+        foundUser.secret = submittedSecret;
+        /*
+        Save the foundUser with their newly updated secret
+        */
+        foundUser.save(function() {
+          res.redirect("/secrets");
+        });
+      }
+    }
+  });
+});
+
+
+
 
 //POST request (register route) to post the username and password the user enter when registering
 app.post("/register", function(req, res) {
