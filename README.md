@@ -20,7 +20,7 @@
           3.5.2 [Installation](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#installation-2)</br>
           3.5.3 [Usage](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#usage-1)</br>
           3.5.4 [Environment Variables to Keep Secrets Safe Code Example](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#environment-variables-to-keep-secrets-safe-code-example)</br>
-        3.6 [.gitignore](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#gitignore)</br>
+         3.5.5 [.gitignore](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#gitignore)</br>
 4.  [Security Level 3 - Hash](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#security-level-3---hash)</br>
     4.1 [MD5](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#md5)</br>
     4.2 [Installation](https://github.com/SchmidtRichard/Authentication-Security/blob/master/README.md#installation-3)</br>
@@ -276,19 +276,19 @@ userSchema.plugin(encrypt, {
 });
 ```
 
-# Environment Variables to Keep Secrets Safe
+## Environment Variables to Keep Secrets Safe
 
-## [dotenv](https://www.npmjs.com/package/dotenv)
+### [dotenv](https://www.npmjs.com/package/dotenv)
 
 Dotenv is a zero-dependency module that loads environment variables from a `.env` file into `process.env`.
 
-## Installation
+### Installation
 
 ```js
 npm install dotenv
 ```
 
-## Usage
+### Usage
 
 As early as possible in your application, require and configure dotenv.
 
@@ -315,7 +315,7 @@ DB_PASS=s1mpl3
     })
 ```
 
-## Environment Variables to Keep Secrets Safe Code Example
+### Environment Variables to Keep Secrets Safe Code Example
 
 .env file
 
@@ -356,7 +356,7 @@ userSchema.plugin(encrypt, {
 });
 ```
 
-## [.gitignore](https://github.com/github/gitignore/blob/master/Node.gitignore)
+### [.gitignore](https://github.com/github/gitignore/blob/master/Node.gitignore)
 
 Tell git which files and folders it should ignore when uploading to GitHub, the `.env` file should always be kept hidden from GitHub and any other public place in order to keep the secrets safe.
 
