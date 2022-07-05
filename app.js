@@ -52,10 +52,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //Connect to mongoDB
-mongoose.connect('mongodb://localhost:27017/userDB', {
-	useNewUrlParser: true,
-	useUnifiedTopology: true
-});
+mongoose.connect('mongodb://localhost:27017/userDB');
 
 /*
 Fix the below error after running nodemon app.js
