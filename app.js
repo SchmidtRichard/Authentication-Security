@@ -52,10 +52,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //Connect to mongoDB
-mongoose.connect('mongodb://localhost:27017/userDB', {
-	useNewUrlParser: true,
-	useUnifiedTopology: true
-});
+mongoose.connect('mongodb://localhost:27017/userDB');
 
 /*
 Fix the below error after running nodemon app.js
@@ -403,11 +400,14 @@ app.get('/submit', function(req, res) {
 });
 
 //Target the logout route
-app.get('/logout', function(req, res) {
+app
+   .route("/logout")
+   .get((req, res) => {
 	//deauthenticate the user and end the user session
-	req.logout();
+         req.logout(function(error) {
+              if (error) { return next(error); }
 	//redirect the user to the root route (home page)
-	res.redirect('/');
+	res.redirect("/");
 });
 
 //POST request (submit route) to submit a secret
